@@ -340,6 +340,9 @@ sap.ui.define([
             const oData = this.getView().getModel("ui").getData();
             const oFields = this.getView().getModel("viewState").getProperty("/fields") || {};
             const aRequired = [
+                { visible: true, value: oData.CreadorSolicitud, message: "No se encontró el creador de la solicitud" },
+                { visible: oFields.TipoSolicitud, value: oData.TipoSolicitud, message: "Seleccione el tipo de solicitud" },
+                { visible: oFields.Solicitante, value: oData.Solicitante, message: "No se encontró el solicitante" },
                 { visible: oFields.NombreSolicitante, value: oData.NombreSolicitante, message: "Ingrese el nombre del solicitante" },
                 { visible: oFields.Ciudad, value: oData.Ciudad, message: "Ingrese la ciudad" },
                 { visible: oFields.CentroCosto, value: oData.CentroCosto, message: "Ingrese el centro de costo" },
