@@ -307,8 +307,8 @@ sap.ui.define([
                     mVisibility.NombreRespNuevo = true;
                     mVisibility.Aprobador = true;
                     mVisibility.ResponsableGestion = true;
-                    mVisibility.ObsGestion = true;
-                    mVisibility.ObsAprobador = true;
+                    //mVisibility.ObsGestion = true;
+                    //mVisibility.ObsAprobador = true;
                     break;
                 case "3":
                     mVisibility.PersonaRecibeSim = true;
@@ -320,8 +320,8 @@ sap.ui.define([
                 case "4":
                     mVisibility.Linea = true;
                     mVisibility.TipoEquipo = true;
-                    mVisibility.ObsGestion = true;
-                    mVisibility.ObsAprobador = true;
+                    //mVisibility.ObsGestion = true;
+                    //mVisibility.ObsAprobador = true;
                     break;
                 default:
                     mVisibility.Ciudad = true;
