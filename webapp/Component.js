@@ -94,7 +94,7 @@ sap.ui.define([
             const oUserModel = new JSONModel();
             this.setModel(oUserModel, "user");
 
-            const sEmail = "carlos.bermudez@melcol.com.co";//sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "carlos.bermudez@melcol.com.co";
+            const sEmail = sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "carlos.bermudez@melcol.com.co";
 
             console.log("[UserContext] Starting Pernr lookup", {
                 email: sEmail

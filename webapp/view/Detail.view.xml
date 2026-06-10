@@ -15,10 +15,17 @@
                         <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false"/>
 
                         <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}"/>
-                        <Input id="inpTipoSolicitud" value="{ui>/TipoSolicitud}" editable="{viewState>/Editable}"/>
+                        <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}">
+                            <items>
+                                <core:Item id="itemTipoSolicitud1" key="1" text="{i18n>optTipoSolicitud1}"/>
+                                <core:Item id="itemTipoSolicitud2" key="2" text="{i18n>optTipoSolicitud2}"/>
+                                <core:Item id="itemTipoSolicitud3" key="3" text="{i18n>optTipoSolicitud3}"/>
+                                <core:Item id="itemTipoSolicitud4" key="4" text="{i18n>optTipoSolicitud4}"/>
+                            </items>
+                        </Select>
 
                         <Label id="lblSolicitante" text="{i18n>lblSolicitante}"/>
-                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="{viewState>/Editable}"/>
+                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="false"/>
 
                         <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}"/>
                         <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}"/>

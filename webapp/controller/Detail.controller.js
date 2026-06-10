@@ -10,6 +10,7 @@ sap.ui.define([
         onInit() {
             this._initUiModel();
             this._initViewStateModel();
+            this._attachUserModelSync();
         },
 
         _getUserPernr() {
@@ -18,6 +19,47 @@ sap.ui.define([
 
         _initUiModel() {
             this.getView().setModel(new JSONModel(this._initEmptyRequest()), "ui");
+        },
+
+        _attachUserModelSync() {
+            const oUserModel = this.getOwnerComponent().getModel("user");
+
+            if (!oUserModel || this._bUserModelSyncAttached) {
+                return;
+            }
+
+            this._bUserModelSyncAttached = true;
+            this._syncUserFieldsToCreateModel();
+            oUserModel.attachEvent("change", this._syncUserFieldsToCreateModel, this);
+        },
+
+        _syncUserFieldsToCreateModel(bForceSync) {
+            const sPernr = String(this._getUserPernr() || "");
+            const oUiModel = this.getView().getModel("ui");
+
+            if (!oUiModel || !sPernr) {
+                return;
+            }
+
+            const oData = oUiModel.getData();
+            const bIsCreateContext = !oData.IdSolicitud;
+
+            if (!bIsCreateContext && !bForceSync) {
+                return;
+            }
+
+            const bShouldSyncCreator = bForceSync || !oData.CreadorSolicitud || oData.CreadorSolicitud === this._sLastSyncedPernr;
+            const bShouldSyncRequester = bForceSync || !oData.Solicitante || oData.Solicitante === this._sLastSyncedPernr;
+
+            if (bShouldSyncCreator) {
+                oUiModel.setProperty("/CreadorSolicitud", sPernr);
+            }
+
+            if (bShouldSyncRequester) {
+                oUiModel.setProperty("/Solicitante", sPernr);
+            }
+
+            this._sLastSyncedPernr = sPernr;
         },
 
         _initEmptyRequest() {
@@ -61,6 +103,7 @@ sap.ui.define([
 
         loadInCreateMode() {
             this.getView().getModel("ui").setData(this._initEmptyRequest());
+            this._syncUserFieldsToCreateModel(true);
             this._setCreateViewState();
         },
 

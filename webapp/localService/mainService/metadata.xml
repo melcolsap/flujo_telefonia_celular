@@ -50,8 +50,8 @@
                     <PropertyRef Name="Id_adjunto"/>
                 </Key>
                 <Property Name="Cont_archivo" Type="Edm.Binary" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Tipo" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Nom_archivo" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tipo" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Id_solicitud" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Id_adjunto" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
@@ -88,6 +88,22 @@
                 <Property Name="Estado" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Id_Solicitud" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Signed INT2 / int16" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="Consultar_Pernr" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Correo"/>
+                </Key>
+                <Property Name="Correo" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mensaje_Error" Type="Edm.String" Nullable="false" MaxLength="75" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pernr" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Signed INT2 / int16" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Centro_Costo" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Num_Ceco"/>
+                </Key>
+                <Property Name="Nom_Ceco" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mensaje_Error" Type="Edm.String" Nullable="false" MaxLength="75" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Num_Ceco" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="EnviarToAdjunto" sap:content-version="1">
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Enviar_Accion" Multiplicity="1" Role="FromRole_EnviarToAdjunto"/>
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Adjuntos" Multiplicity="*" Role="ToRole_EnviarToAdjunto"/>
@@ -119,6 +135,8 @@
                 <EntitySet Name="Enviar_AccionSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Enviar_Accion" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="Listado_GerentesSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Listado_Gerentes" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="Listado_SolicitudesSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Listado_Solicitudes" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Consultar_PernrSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Consultar_Pernr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Centro_CostoSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Centro_Costo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <AssociationSet Name="CabToAdjuntoSet" Association="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.CabToAdjunto" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CabeceraSet" Role="FromRole_CabToAdjunto"/>
                     <End EntitySet="AdjuntosSet" Role="ToRole_CabToAdjunto"/>

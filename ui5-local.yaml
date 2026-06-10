@@ -32,6 +32,7 @@ server:
         backend:
           - path: /sap
             url: http://172.18.20.79:8001
+            client: '001'
             destination: Melco_Dev
     - name: sap-fe-mockserver
       beforeMiddleware: csp
