@@ -329,7 +329,7 @@ sap.ui.define([
                     mVisibility.Linea = true;
                     mVisibility.TipoEquipo = true;
                     mVisibility.Aprobador = true;
-                    mVisibility.ResponsableGestion = true;
+                    //mVisibility.ResponsableGestion = true;
                     break;
             }
 
