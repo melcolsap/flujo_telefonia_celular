@@ -104,6 +104,19 @@
                 <Property Name="Mensaje_Error" Type="Edm.String" Nullable="false" MaxLength="75" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Num_Ceco" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="Ciudades" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Nombre"/>
+                </Key>
+                <Property Name="Nombre" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TipoSoli" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Descripcion" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="EnviarToAdjunto" sap:content-version="1">
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Enviar_Accion" Multiplicity="1" Role="FromRole_EnviarToAdjunto"/>
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Adjuntos" Multiplicity="*" Role="ToRole_EnviarToAdjunto"/>
@@ -137,6 +150,8 @@
                 <EntitySet Name="Listado_SolicitudesSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Listado_Solicitudes" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="Consultar_PernrSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Consultar_Pernr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="Centro_CostoSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Centro_Costo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="CiudadesSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Ciudades" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="TipoSoliSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.TipoSoli" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <AssociationSet Name="CabToAdjuntoSet" Association="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.CabToAdjunto" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CabeceraSet" Role="FromRole_CabToAdjunto"/>
                     <End EntitySet="AdjuntosSet" Role="ToRole_CabToAdjunto"/>
