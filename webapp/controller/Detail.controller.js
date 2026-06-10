@@ -17,6 +17,10 @@ sap.ui.define([
             return this.getOwnerComponent().getModel("user").getProperty("/pernr") || "";
         },
 
+        _getUserEmail() {
+            return this.getOwnerComponent().getModel("user").getProperty("/email") || "";
+        },
+
         _initUiModel() {
             this.getView().setModel(new JSONModel(this._initEmptyRequest()), "ui");
         },
@@ -35,9 +39,11 @@ sap.ui.define([
 
         _syncUserFieldsToCreateModel(bForceSync) {
             const sPernr = String(this._getUserPernr() || "");
+            const sEmail = String(this._getUserEmail() || "");
+            const sNombreSolicitante = this._formatNameFromEmail(sEmail);
             const oUiModel = this.getView().getModel("ui");
 
-            if (!oUiModel || !sPernr) {
+            if (!oUiModel) {
                 return;
             }
 
@@ -50,16 +56,38 @@ sap.ui.define([
 
             const bShouldSyncCreator = bForceSync || !oData.CreadorSolicitud || oData.CreadorSolicitud === this._sLastSyncedPernr;
             const bShouldSyncRequester = bForceSync || !oData.Solicitante || oData.Solicitante === this._sLastSyncedPernr;
+            const bShouldSyncName = !!sNombreSolicitante && (bForceSync || !oData.NombreSolicitante || oData.NombreSolicitante === this._sLastAutoFilledNombreSolicitante);
 
-            if (bShouldSyncCreator) {
+            if (sPernr && bShouldSyncCreator) {
                 oUiModel.setProperty("/CreadorSolicitud", sPernr);
             }
 
-            if (bShouldSyncRequester) {
+            if (sPernr && bShouldSyncRequester) {
                 oUiModel.setProperty("/Solicitante", sPernr);
             }
 
-            this._sLastSyncedPernr = sPernr;
+            if (bShouldSyncName) {
+                oUiModel.setProperty("/NombreSolicitante", sNombreSolicitante);
+                this._sLastAutoFilledNombreSolicitante = sNombreSolicitante;
+            }
+
+            if (sPernr) {
+                this._sLastSyncedPernr = sPernr;
+            }
+        },
+
+        _formatNameFromEmail(sEmail) {
+            const sLocalPart = String(sEmail || "").split("@")[0];
+
+            if (!sLocalPart) {
+                return "";
+            }
+
+            return sLocalPart
+                .split(/[._-]+/)
+                .filter(Boolean)
+                .map((sPart) => sPart.charAt(0).toUpperCase() + sPart.slice(1).toLowerCase())
+                .join(" ");
         },
 
         _initEmptyRequest() {

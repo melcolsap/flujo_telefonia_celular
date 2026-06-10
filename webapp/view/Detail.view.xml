@@ -11,8 +11,8 @@
 
                 <Panel id="panelRequestForm" headerText="{i18n>titleRequestForm}" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
                     <form:SimpleForm id="requestSimpleForm" editable="{viewState>/Editable}" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
-                        <Label id="lblCreadorSolicitud" text="{i18n>lblCreadorSolicitud}" required="{viewState>/Editable}"/>
-                        <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false" valueState="{= ${viewState>/Editable} &amp;&amp; !${ui>/CreadorSolicitud} ? 'Error' : 'None' }"/>
+                        <Label id="lblCreadorSolicitud" text="{i18n>lblCreadorSolicitud}" visible="false"/>
+                        <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false" visible="false"/>
 
                         <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}" visible="{viewState>/fields/TipoSolicitud}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoSolicitud} }"/>
                         <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}" change="onTipoSolicitudChange" visible="{viewState>/fields/TipoSolicitud}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoSolicitud} &amp;&amp; !${ui>/TipoSolicitud} ? 'Error' : 'None' }">
