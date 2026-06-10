@@ -14,8 +14,8 @@
                         <Label id="lblCreadorSolicitud" text="{i18n>lblCreadorSolicitud}"/>
                         <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false"/>
 
-                        <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}"/>
-                        <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}">
+                        <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}" visible="{viewState>/fields/TipoSolicitud}"/>
+                        <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}" change="onTipoSolicitudChange" visible="{viewState>/fields/TipoSolicitud}">
                             <items>
                                 <core:Item id="itemTipoSolicitud1" key="1" text="{i18n>optTipoSolicitud1}"/>
                                 <core:Item id="itemTipoSolicitud2" key="2" text="{i18n>optTipoSolicitud2}"/>
@@ -24,56 +24,56 @@
                             </items>
                         </Select>
 
-                        <Label id="lblSolicitante" text="{i18n>lblSolicitante}"/>
-                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="false"/>
+                        <Label id="lblSolicitante" text="{i18n>lblSolicitante}" visible="{viewState>/fields/Solicitante}"/>
+                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="false" visible="{viewState>/fields/Solicitante}"/>
 
-                        <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}"/>
-                        <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}"/>
+                        <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}" visible="{viewState>/fields/NombreSolicitante}"/>
+                        <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreSolicitante}"/>
 
-                        <Label id="lblCiudad" text="{i18n>lblCiudad}"/>
-                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}"/>
+                        <Label id="lblCiudad" text="{i18n>lblCiudad}" visible="{viewState>/fields/Ciudad}"/>
+                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}" visible="{viewState>/fields/Ciudad}"/>
 
-                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}"/>
-                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}"/>
+                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}"/>
+                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}"/>
 
-                        <Label id="lblLinea" text="{i18n>lblLinea}"/>
-                        <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}"/>
+                        <Label id="lblLinea" text="{i18n>lblLinea}" visible="{viewState>/fields/Linea}"/>
+                        <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}" visible="{viewState>/fields/Linea}"/>
 
-                        <Label id="lblCedulaRespActual" text="{i18n>lblCedulaRespActual}"/>
-                        <Input id="inpCedulaRespActual" value="{ui>/CedulaRespActual}" editable="{viewState>/Editable}"/>
+                        <Label id="lblCedulaRespActual" text="{i18n>lblCedulaRespActual}" visible="{viewState>/fields/CedulaRespActual}"/>
+                        <Input id="inpCedulaRespActual" value="{ui>/CedulaRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespActual}"/>
 
-                        <Label id="lblNombreRespActual" text="{i18n>lblNombreRespActual}"/>
-                        <Input id="inpNombreRespActual" value="{ui>/NombreRespActual}" editable="{viewState>/Editable}"/>
+                        <Label id="lblNombreRespActual" text="{i18n>lblNombreRespActual}" visible="{viewState>/fields/NombreRespActual}"/>
+                        <Input id="inpNombreRespActual" value="{ui>/NombreRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespActual}"/>
 
-                        <Label id="lblCedulaRespNuevo" text="{i18n>lblCedulaRespNuevo}"/>
-                        <Input id="inpCedulaRespNuevo" value="{ui>/CedulaRespNuevo}" editable="{viewState>/Editable}"/>
+                        <Label id="lblCedulaRespNuevo" text="{i18n>lblCedulaRespNuevo}" visible="{viewState>/fields/CedulaRespNuevo}"/>
+                        <Input id="inpCedulaRespNuevo" value="{ui>/CedulaRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespNuevo}"/>
 
-                        <Label id="lblNombreRespNuevo" text="{i18n>lblNombreRespNuevo}"/>
-                        <Input id="inpNombreRespNuevo" value="{ui>/NombreRespNuevo}" editable="{viewState>/Editable}"/>
+                        <Label id="lblNombreRespNuevo" text="{i18n>lblNombreRespNuevo}" visible="{viewState>/fields/NombreRespNuevo}"/>
+                        <Input id="inpNombreRespNuevo" value="{ui>/NombreRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespNuevo}"/>
 
-                        <Label id="lblPersonaRecibeSim" text="{i18n>lblPersonaRecibeSim}"/>
-                        <Input id="inpPersonaRecibeSim" value="{ui>/PersonaRecibeSim}" editable="{viewState>/Editable}"/>
+                        <Label id="lblPersonaRecibeSim" text="{i18n>lblPersonaRecibeSim}" visible="{viewState>/fields/PersonaRecibeSim}"/>
+                        <Input id="inpPersonaRecibeSim" value="{ui>/PersonaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/PersonaRecibeSim}"/>
 
-                        <Label id="lblCedulaRecibeSim" text="{i18n>lblCedulaRecibeSim}"/>
-                        <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}"/>
+                        <Label id="lblCedulaRecibeSim" text="{i18n>lblCedulaRecibeSim}" visible="{viewState>/fields/CedulaRecibeSim}"/>
+                        <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRecibeSim}"/>
 
-                        <Label id="lblAprobador" text="{i18n>lblAprobador}"/>
-                        <Input id="inpAprobador" value="{ui>/Aprobador}" editable="{viewState>/Editable}"/>
+                        <Label id="lblAprobador" text="{i18n>lblAprobador}" visible="{viewState>/fields/Aprobador}"/>
+                        <Input id="inpAprobador" value="{ui>/Aprobador}" editable="{viewState>/Editable}" visible="{viewState>/fields/Aprobador}"/>
 
-                        <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}"/>
-                        <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}"/>
+                        <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}" visible="{viewState>/fields/ResponsableGestion}"/>
+                        <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}" visible="{viewState>/fields/ResponsableGestion}"/>
 
-                        <Label id="lblTipoEquipo" text="{i18n>lblTipoEquipo}"/>
-                        <Input id="inpTipoEquipo" value="{ui>/TipoEquipo}" editable="{viewState>/Editable}"/>
+                        <Label id="lblTipoEquipo" text="{i18n>lblTipoEquipo}" visible="{viewState>/fields/TipoEquipo}"/>
+                        <Input id="inpTipoEquipo" value="{ui>/TipoEquipo}" editable="{viewState>/Editable}" visible="{viewState>/fields/TipoEquipo}"/>
 
-                        <Label id="lblObservacion" text="{i18n>lblObservacion}"/>
-                        <TextArea id="txtObservacion" value="{ui>/Observacion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200"/>
+                        <Label id="lblObservacion" text="{i18n>lblObservacion}" visible="{viewState>/fields/Observacion}"/>
+                        <TextArea id="txtObservacion" value="{ui>/Observacion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{viewState>/fields/Observacion}"/>
 
-                        <Label id="lblObsGestion" text="{i18n>lblObsGestion}"/>
-                        <TextArea id="txtObsGestion" value="{ui>/ObsGestion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= !${viewState>/Editable} }"/>
+                        <Label id="lblObsGestion" text="{i18n>lblObsGestion}" visible="{= ${viewState>/fields/ObsGestion} &amp;&amp; !${viewState>/Editable} }"/>
+                        <TextArea id="txtObsGestion" value="{ui>/ObsGestion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= ${viewState>/fields/ObsGestion} &amp;&amp; !${viewState>/Editable} }"/>
 
-                        <Label id="lblObsAprobador" text="{i18n>lblObsAprobador}"/>
-                        <TextArea id="txtObsAprobador" value="{ui>/ObsAprobador}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= !${viewState>/Editable} }"/>
+                        <Label id="lblObsAprobador" text="{i18n>lblObsAprobador}" visible="{= ${viewState>/fields/ObsAprobador} &amp;&amp; !${viewState>/Editable} }"/>
+                        <TextArea id="txtObsAprobador" value="{ui>/ObsAprobador}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= ${viewState>/fields/ObsAprobador} &amp;&amp; !${viewState>/Editable} }"/>
                     </form:SimpleForm>
 
                     <VBox id="vboxCreateAttachments" visible="{viewState>/Editable}" class="sapUiSmallMarginTop">

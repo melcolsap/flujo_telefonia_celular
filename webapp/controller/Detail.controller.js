@@ -97,7 +97,8 @@ sap.ui.define([
                 showSendRequestButton: false,
                 showActionPanel: false,
                 allowAction: false,
-                showAdjuntos: false
+                showAdjuntos: false,
+                fields: this._getFieldVisibilityByTipoSolicitud("1")
             }), "viewState");
         },
 
@@ -105,6 +106,7 @@ sap.ui.define([
             this.getView().getModel("ui").setData(this._initEmptyRequest());
             this._syncUserFieldsToCreateModel(true);
             this._setCreateViewState();
+            this._applyTypeVisibility(this.getView().getModel("ui").getProperty("/TipoSolicitud"));
         },
 
         loadInDisplayMode(sIdSolicitud, sPasoActual) {
@@ -116,6 +118,7 @@ sap.ui.define([
                 success: (oData) => {
                     sap.ui.core.BusyIndicator.hide();
                     this.getView().getModel("ui").setData(Adapter.mapCabeceraToUiModel(oData));
+                    this._applyTypeVisibility(oData.TipoSolicitud);
                     this._configureViewStateByPasoActual(sPasoActual);
                 },
                 error: (oError) => {
@@ -123,6 +126,10 @@ sap.ui.define([
                     MessageBox.error(this._extractODataErrorMessage(oError, "Error al obtener el detalle de la solicitud"));
                 }
             });
+        },
+
+        onTipoSolicitudChange(oEvent) {
+            this._applyTypeVisibility(oEvent.getSource().getSelectedKey());
         },
 
         onSendRequest() {
@@ -242,7 +249,8 @@ sap.ui.define([
                 showSendRequestButton: true,
                 showActionPanel: false,
                 allowAction: false,
-                showAdjuntos: false
+                showAdjuntos: false,
+                fields: this._getFieldVisibilityByTipoSolicitud(this.getView().getModel("ui").getProperty("/TipoSolicitud"))
             });
         },
 
@@ -252,31 +260,104 @@ sap.ui.define([
                 showSendRequestButton: false,
                 showActionPanel: !!sPasoActual,
                 allowAction: !!sPasoActual,
-                showAdjuntos: true
+                showAdjuntos: true,
+                fields: this.getView().getModel("viewState").getProperty("/fields")
             });
+        },
+
+        _applyTypeVisibility(sTipoSolicitud) {
+            this.getView().getModel("viewState").setProperty("/fields", this._getFieldVisibilityByTipoSolicitud(sTipoSolicitud));
+        },
+
+        _getFieldVisibilityByTipoSolicitud(sTipoSolicitud) {
+            const mVisibility = {
+                TipoSolicitud: true,
+                Solicitante: true,
+                NombreSolicitante: true,
+                Ciudad: false,
+                CentroCosto: false,
+                Linea: false,
+                CedulaRespActual: false,
+                NombreRespActual: false,
+                CedulaRespNuevo: false,
+                NombreRespNuevo: false,
+                PersonaRecibeSim: false,
+                CedulaRecibeSim: false,
+                Aprobador: false,
+                ResponsableGestion: false,
+                TipoEquipo: false,
+                Observacion: true,
+                ObsGestion: false,
+                ObsAprobador: false
+            };
+
+            switch (String(sTipoSolicitud || "1")) {
+                case "1":
+                    mVisibility.Ciudad = true;
+                    mVisibility.CentroCosto = true;
+                    mVisibility.Linea = true;
+                    mVisibility.TipoEquipo = true;
+                    mVisibility.Aprobador = true;
+                    mVisibility.ResponsableGestion = true;
+                    break;
+                case "2":
+                    mVisibility.CedulaRespActual = true;
+                    mVisibility.NombreRespActual = true;
+                    mVisibility.CedulaRespNuevo = true;
+                    mVisibility.NombreRespNuevo = true;
+                    mVisibility.Aprobador = true;
+                    mVisibility.ResponsableGestion = true;
+                    mVisibility.ObsGestion = true;
+                    mVisibility.ObsAprobador = true;
+                    break;
+                case "3":
+                    mVisibility.PersonaRecibeSim = true;
+                    mVisibility.CedulaRecibeSim = true;
+                    mVisibility.Ciudad = true;
+                    mVisibility.CentroCosto = true;
+                    mVisibility.Linea = true;
+                    break;
+                case "4":
+                    mVisibility.Linea = true;
+                    mVisibility.TipoEquipo = true;
+                    mVisibility.ObsGestion = true;
+                    mVisibility.ObsAprobador = true;
+                    break;
+                default:
+                    mVisibility.Ciudad = true;
+                    mVisibility.CentroCosto = true;
+                    mVisibility.Linea = true;
+                    mVisibility.TipoEquipo = true;
+                    mVisibility.Aprobador = true;
+                    mVisibility.ResponsableGestion = true;
+                    break;
+            }
+
+            return mVisibility;
         },
 
         _validateCreate() {
             const oData = this.getView().getModel("ui").getData();
+            const oFields = this.getView().getModel("viewState").getProperty("/fields") || {};
             const aRequired = [
-                { value: oData.NombreSolicitante, message: "Ingrese el nombre del solicitante" },
-                { value: oData.Ciudad, message: "Ingrese la ciudad" },
-                { value: oData.CentroCosto, message: "Ingrese el centro de costo" },
-                { value: oData.Linea, message: "Ingrese la línea" },
-                { value: oData.CedulaRespActual, message: "Ingrese la cédula del responsable actual" },
-                { value: oData.NombreRespActual, message: "Ingrese el nombre del responsable actual" },
-                { value: oData.CedulaRespNuevo, message: "Ingrese la cédula del responsable nuevo" },
-                { value: oData.NombreRespNuevo, message: "Ingrese el nombre del responsable nuevo" },
-                { value: oData.PersonaRecibeSim, message: "Ingrese la persona que recibe la SIM" },
-                { value: oData.CedulaRecibeSim, message: "Ingrese la cédula de quien recibe la SIM" },
-                { value: oData.Aprobador, message: "Ingrese el aprobador" },
-                { value: oData.ResponsableGestion, message: "Ingrese el responsable de gestión" },
-                { value: oData.TipoEquipo, message: "Ingrese el tipo de equipo" },
-                { value: oData.Observacion, message: "Ingrese la observación" }
+                { visible: oFields.NombreSolicitante, value: oData.NombreSolicitante, message: "Ingrese el nombre del solicitante" },
+                { visible: oFields.Ciudad, value: oData.Ciudad, message: "Ingrese la ciudad" },
+                { visible: oFields.CentroCosto, value: oData.CentroCosto, message: "Ingrese el centro de costo" },
+                { visible: oFields.Linea, value: oData.Linea, message: "Ingrese la línea" },
+                { visible: oFields.CedulaRespActual, value: oData.CedulaRespActual, message: "Ingrese la cédula del responsable actual" },
+                { visible: oFields.NombreRespActual, value: oData.NombreRespActual, message: "Ingrese el nombre del responsable actual" },
+                { visible: oFields.CedulaRespNuevo, value: oData.CedulaRespNuevo, message: "Ingrese la cédula del responsable nuevo" },
+                { visible: oFields.NombreRespNuevo, value: oData.NombreRespNuevo, message: "Ingrese el nombre del responsable nuevo" },
+                { visible: oFields.PersonaRecibeSim, value: oData.PersonaRecibeSim, message: "Ingrese la persona que recibe la SIM" },
+                { visible: oFields.CedulaRecibeSim, value: oData.CedulaRecibeSim, message: "Ingrese la cédula de quien recibe la SIM" },
+                { visible: oFields.Aprobador, value: oData.Aprobador, message: "Ingrese el aprobador" },
+                { visible: oFields.ResponsableGestion, value: oData.ResponsableGestion, message: "Ingrese el responsable de gestión" },
+                { visible: oFields.TipoEquipo, value: oData.TipoEquipo, message: "Ingrese el tipo de equipo" },
+                { visible: oFields.Observacion, value: oData.Observacion, message: "Ingrese la observación" }
             ];
 
             for (const oField of aRequired) {
-                if (!oField.value) {
+                if (oField.visible && !oField.value) {
                     MessageBox.error(oField.message);
                     return false;
                 }
