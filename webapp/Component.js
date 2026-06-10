@@ -37,7 +37,7 @@ sap.ui.define([
             const sEmail = sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "carlos.bermudez@melcol.com.co";
 
             //const sPernr = await this._readPernrRequest(sEmail);
-            const sPernr = 1837;
+            const sPernr = 1933;
             oUserModel.setData({
                 email: sEmail,
                 pernr: sPernr

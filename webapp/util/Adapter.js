@@ -5,32 +5,45 @@ sap.ui.define([], () => {
         CREAR: "C"
     };
 
+    function toStringValue(vValue) {
+        return vValue === null || vValue === undefined ? "" : String(vValue);
+    }
+
     return {
         ACCION,
 
         mapUiModelToCreatePayload(oUiModel) {
             return {
-                Estado: oUiModel.Estado,
-                CreadorSolicitud: oUiModel.CreadorSolicitud,
-                TipoSolicitud: oUiModel.TipoSolicitud,
-                Solicitante: oUiModel.Solicitante,
-                NombreSolicitante: oUiModel.NombreSolicitante,
-                Ciudad: oUiModel.Ciudad,
-                CentroCosto: oUiModel.CentroCosto,
-                Linea: oUiModel.Linea,
-                CedulaRespActual: oUiModel.CedulaRespActual,
-                NombreRespActual: oUiModel.NombreRespActual,
-                CedulaRespNuevo: oUiModel.CedulaRespNuevo,
-                NombreRespNuevo: oUiModel.NombreRespNuevo,
-                PersonaRecibeSim: oUiModel.PersonaRecibeSim,
-                CedulaRecibeSim: oUiModel.CedulaRecibeSim,
-                Aprobador: oUiModel.Aprobador,
-                ResponsableGestion: oUiModel.ResponsableGestion,
-                TipoEquipo: oUiModel.TipoEquipo,
-                Observacion: oUiModel.Observacion,
-                ObsGestion: oUiModel.ObsGestion || "",
-                ObsAprobador: oUiModel.ObsAprobador || "",
+                Estado: toStringValue(oUiModel.Estado),
+                CreadorSolicitud: toStringValue(oUiModel.CreadorSolicitud),
+                TipoSolicitud: toStringValue(oUiModel.TipoSolicitud),
+                Solicitante: toStringValue(oUiModel.Solicitante),
+                NombreSolicitante: toStringValue(oUiModel.NombreSolicitante),
+                Ciudad: toStringValue(oUiModel.Ciudad),
+                CentroCosto: toStringValue(oUiModel.CentroCosto),
+                Linea: toStringValue(oUiModel.Linea),
+                CedulaRespActual: toStringValue(oUiModel.CedulaRespActual),
+                NombreRespActual: toStringValue(oUiModel.NombreRespActual),
+                CedulaRespNuevo: toStringValue(oUiModel.CedulaRespNuevo),
+                NombreRespNuevo: toStringValue(oUiModel.NombreRespNuevo),
+                PersonaRecibeSim: toStringValue(oUiModel.PersonaRecibeSim),
+                CedulaRecibeSim: toStringValue(oUiModel.CedulaRecibeSim),
+                Aprobador: toStringValue(oUiModel.Aprobador),
+                ResponsableGestion: toStringValue(oUiModel.ResponsableGestion),
+                TipoEquipo: toStringValue(oUiModel.TipoEquipo),
+                Observacion: toStringValue(oUiModel.Observacion),
+                ObsGestion: toStringValue(oUiModel.ObsGestion),
+                ObsAprobador: toStringValue(oUiModel.ObsAprobador),
                 CabToAdjuntoSet: this.mapAdjuntosToPayload(oUiModel.Adjuntos)
+            };
+        },
+
+        mapDetailQueryPayload(sIdSolicitud, sCreadorSolicitud) {
+            return {
+                Estado: "V",
+                CreadorSolicitud: toStringValue(sCreadorSolicitud),
+                IdSolicitud: Number(sIdSolicitud) || 0,
+                CabToAdjuntoSet: []
             };
         },
 
@@ -72,9 +85,9 @@ sap.ui.define([], () => {
 
         mapFileToAdjunto(oArchivo, sBase64) {
             return {
-                Nombre: oArchivo.name,
-                Tipo: oArchivo.type,
-                Contenido: sBase64,
+                Nombre: toStringValue(oArchivo.name),
+                Tipo: toStringValue(oArchivo.type),
+                Contenido: toStringValue(sBase64),
                 ID_FLUJO: 2
             };
         },
@@ -84,9 +97,9 @@ sap.ui.define([], () => {
                 .filter(oAdjunto => oAdjunto.Nombre)
                 .map(oAdjunto => ({
                     ID_FLUJO: oAdjunto.ID_FLUJO || 2,
-                    Tipo: oAdjunto.Tipo,
-                    Contenido: oAdjunto.Contenido || "",
-                    Nombre: oAdjunto.Nombre
+                    Tipo: toStringValue(oAdjunto.Tipo),
+                    Contenido: toStringValue(oAdjunto.Contenido),
+                    Nombre: toStringValue(oAdjunto.Nombre)
                 }));
         },
 

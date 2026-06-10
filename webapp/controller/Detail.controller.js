@@ -21,7 +21,7 @@ sap.ui.define([
         },
 
         _initEmptyRequest() {
-            const sPernr = this._getUserPernr();
+            const sPernr = String(this._getUserPernr() || "");
 
             return {
                 IdSolicitud: "",
@@ -65,20 +65,19 @@ sap.ui.define([
         },
 
         loadInDisplayMode(sIdSolicitud, sPasoActual) {
+            const oPayload = Adapter.mapDetailQueryPayload(sIdSolicitud, this._getUserPernr());
+
             sap.ui.core.BusyIndicator.show(0);
 
-            this.getOwnerComponent().getModel().read("/CabeceraSet(" + sIdSolicitud + ")", {
-                urlParameters: {
-                    "$expand": "CabToAdjuntoSet"
-                },
+            this.getOwnerComponent().getModel().create("/CabeceraSet", oPayload, {
                 success: (oData) => {
                     sap.ui.core.BusyIndicator.hide();
                     this.getView().getModel("ui").setData(Adapter.mapCabeceraToUiModel(oData));
                     this._configureViewStateByPasoActual(sPasoActual);
                 },
-                error: () => {
+                error: (oError) => {
                     sap.ui.core.BusyIndicator.hide();
-                    MessageBox.error("Error al obtener el detalle de la solicitud");
+                    MessageBox.error(this._extractODataErrorMessage(oError, "Error al obtener el detalle de la solicitud"));
                 }
             });
         },
@@ -97,9 +96,9 @@ sap.ui.define([
                     sap.ui.core.BusyIndicator.hide();
                     this._showMessageAndReload("success", "Solicitud creada correctamente con ID: " + oData.IdSolicitud);
                 },
-                error: () => {
+                error: (oError) => {
                     sap.ui.core.BusyIndicator.hide();
-                    MessageBox.error("Error al crear la solicitud");
+                    MessageBox.error(this._extractODataErrorMessage(oError, "Error al crear la solicitud"));
                 }
             });
         },
@@ -241,6 +240,21 @@ sap.ui.define([
             }
 
             return true;
+        },
+
+        _extractODataErrorMessage(oError, sFallbackMessage) {
+            const sResponseText = oError?.responseText;
+
+            if (!sResponseText) {
+                return sFallbackMessage;
+            }
+
+            try {
+                const oResponse = JSON.parse(sResponseText);
+                return oResponse?.error?.message?.value || sFallbackMessage;
+            } catch (oParseError) {
+                return sFallbackMessage;
+            }
         },
 
         _showMessageAndReload(sType, sMessage) {
