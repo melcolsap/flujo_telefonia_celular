@@ -366,7 +366,7 @@ sap.ui.define([
                     mVisibility.Linea = true;
                     mVisibility.TipoEquipo = true;
                     mVisibility.Aprobador = true;
-                    mVisibility.ResponsableGestion = true;
+                    //mVisibility.ResponsableGestion = true;
                     break;
                 case "2":
                     mVisibility.CedulaRespActual = true;
@@ -374,7 +374,7 @@ sap.ui.define([
                     mVisibility.CedulaRespNuevo = true;
                     mVisibility.NombreRespNuevo = true;
                     mVisibility.Aprobador = true;
-                    mVisibility.ResponsableGestion = true;
+                    //mVisibility.ResponsableGestion = true;
                     //mVisibility.ObsGestion = true;
                     //mVisibility.ObsAprobador = true;
                     break;
@@ -433,7 +433,7 @@ sap.ui.define([
                     mRequired.Linea = true;
                     mRequired.TipoEquipo = true;
                     mRequired.Aprobador = true;
-                    mRequired.ResponsableGestion = true;
+                    //mRequired.ResponsableGestion = true;
                     break;
                 case "2":
                     mRequired.CedulaRespActual = true;
@@ -441,7 +441,7 @@ sap.ui.define([
                     mRequired.CedulaRespNuevo = true;
                     mRequired.NombreRespNuevo = true;
                     mRequired.Aprobador = true;
-                    mRequired.ResponsableGestion = true;
+                    //mRequired.ResponsableGestion = true;
                     break;
                 case "3":
                     mRequired.PersonaRecibeSim = true;
@@ -460,7 +460,7 @@ sap.ui.define([
                     mRequired.Linea = true;
                     mRequired.TipoEquipo = true;
                     mRequired.Aprobador = true;
-                    mRequired.ResponsableGestion = true;
+                    //mRequired.ResponsableGestion = true;
                     break;
             }
 
