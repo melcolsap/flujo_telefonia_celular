@@ -1,0 +1,30 @@
+<mvc:View controllerName="co.mitsubishi.flujotelefoniacelular.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="listPage" title="{i18n>listViewTitle}">
+        <List id="mainList" items="{requests>/items}" itemPress=".onListItemPress">
+            <CustomListItem id="customListItem" type="Active">
+                <VBox id="vboxCustomListItem" class="sapUiSmallMargin">
+                    <!-- Title -->
+                    <Text id="titleListItem" text="Solicitud N° {requests>Id_Solicitud}" class="sapMTitle sapUiTinyMarginBottom" />
+
+                    <!-- Centro Coste -->
+                    <Text id="txtCentroCoste" text="Centro de Costo: {requests>CentroCosto}" wrapping="true" />
+
+                    <!-- Pasajero -->
+                    <Text id="txtPasajero" text="Pasajero(a): {requests>Pasajero}" wrapping="true" />
+
+                    <!-- Object Status-->
+                    <ObjectStatus id="objectStatus" text="{path: 'requests>Estado', formatter: '.Adapter.formatStatusText'}" state="{path: 'requests>Estado', formatter: '.Adapter.formatStatusState'}" inverted="true" class="sapUiSmallMarginTop"/>
+                </VBox>
+            </CustomListItem>
+        </List>
+        <footer>
+            <OverflowToolbar id="overFlowToolBarListPage">
+                <ToolbarSpacer id="toolbarSpacerFooterListPage"/>
+                <Button id="btnCreate" text="{i18n>btnCreate}" icon="sap-icon://add" press="onCreate">
+                </Button>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
