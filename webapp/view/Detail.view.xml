@@ -12,10 +12,10 @@
                 <Panel id="panelRequestForm" headerText="{i18n>titleRequestForm}" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
                     <form:SimpleForm id="requestSimpleForm" editable="{viewState>/Editable}" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
                         <Label id="lblCreadorSolicitud" text="{i18n>lblCreadorSolicitud}" visible="false"/>
-                        <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false" visible="false"/>
+                        <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false" visible="false" valueLiveUpdate="true"/>
 
-                        <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}" visible="{viewState>/fields/TipoSolicitud}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoSolicitud} }"/>
-                        <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}" change="onTipoSolicitudChange" visible="{viewState>/fields/TipoSolicitud}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoSolicitud} &amp;&amp; !${ui>/TipoSolicitud} ? 'Error' : 'None' }">
+                        <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}" visible="{viewState>/fields/TipoSolicitud}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/TipoSolicitud} }"/>
+                        <Select id="selTipoSolicitud" selectedKey="{ui>/TipoSolicitud}" editable="{viewState>/Editable}" change="onTipoSolicitudChange" visible="{viewState>/fields/TipoSolicitud}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/TipoSolicitud} &amp;&amp; !${ui>/TipoSolicitud} ? 'Error' : 'None' }">
                             <items>
                                 <core:Item id="itemTipoSolicitud1" key="1" text="{i18n>optTipoSolicitud1}"/>
                                 <core:Item id="itemTipoSolicitud2" key="2" text="{i18n>optTipoSolicitud2}"/>
@@ -24,50 +24,50 @@
                             </items>
                         </Select>
 
-                        <Label id="lblSolicitante" text="{i18n>lblSolicitante}" visible="{viewState>/fields/Solicitante}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Solicitante} }"/>
-                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="false" visible="{viewState>/fields/Solicitante}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Solicitante} &amp;&amp; !${ui>/Solicitante} ? 'Error' : 'None' }"/>
+                        <Label id="lblSolicitante" text="{i18n>lblSolicitante}" visible="{viewState>/fields/Solicitante}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Solicitante} }"/>
+                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="false" visible="{viewState>/fields/Solicitante}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Solicitante} &amp;&amp; !${ui>/Solicitante} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}" visible="{viewState>/fields/NombreSolicitante}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreSolicitante} }"/>
-                        <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreSolicitante}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreSolicitante} &amp;&amp; !${ui>/NombreSolicitante} ? 'Error' : 'None' }"/>
+                        <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}" visible="{viewState>/fields/NombreSolicitante}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreSolicitante} }"/>
+                        <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreSolicitante}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreSolicitante} &amp;&amp; !${ui>/NombreSolicitante} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblCiudad" text="{i18n>lblCiudad}" visible="{viewState>/fields/Ciudad}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Ciudad} }"/>
-                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}" visible="{viewState>/fields/Ciudad}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Ciudad} &amp;&amp; !${ui>/Ciudad} ? 'Error' : 'None' }"/>
+                        <Label id="lblCiudad" text="{i18n>lblCiudad}" visible="{viewState>/fields/Ciudad}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Ciudad} }"/>
+                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}" visible="{viewState>/fields/Ciudad}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Ciudad} &amp;&amp; !${ui>/Ciudad} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CentroCosto} }"/>
-                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CentroCosto} &amp;&amp; !${ui>/CentroCosto} ? 'Error' : 'None' }"/>
+                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} }"/>
+                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} &amp;&amp; !${ui>/CentroCosto} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblLinea" text="{i18n>lblLinea}" visible="{viewState>/fields/Linea}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Linea} }"/>
-                        <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}" visible="{viewState>/fields/Linea}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Linea} &amp;&amp; !${ui>/Linea} ? 'Error' : 'None' }"/>
+                        <Label id="lblLinea" text="{i18n>lblLinea}" visible="{viewState>/fields/Linea}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Linea} }"/>
+                        <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}" visible="{viewState>/fields/Linea}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Linea} &amp;&amp; !${ui>/Linea} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblCedulaRespActual" text="{i18n>lblCedulaRespActual}" visible="{viewState>/fields/CedulaRespActual}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRespActual} }"/>
-                        <Input id="inpCedulaRespActual" value="{ui>/CedulaRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespActual}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRespActual} &amp;&amp; !${ui>/CedulaRespActual} ? 'Error' : 'None' }"/>
+                        <Label id="lblCedulaRespActual" text="{i18n>lblCedulaRespActual}" visible="{viewState>/fields/CedulaRespActual}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRespActual} }"/>
+                        <Input id="inpCedulaRespActual" value="{ui>/CedulaRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespActual}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRespActual} &amp;&amp; !${ui>/CedulaRespActual} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblNombreRespActual" text="{i18n>lblNombreRespActual}" visible="{viewState>/fields/NombreRespActual}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreRespActual} }"/>
-                        <Input id="inpNombreRespActual" value="{ui>/NombreRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespActual}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreRespActual} &amp;&amp; !${ui>/NombreRespActual} ? 'Error' : 'None' }"/>
+                        <Label id="lblNombreRespActual" text="{i18n>lblNombreRespActual}" visible="{viewState>/fields/NombreRespActual}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreRespActual} }"/>
+                        <Input id="inpNombreRespActual" value="{ui>/NombreRespActual}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespActual}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreRespActual} &amp;&amp; !${ui>/NombreRespActual} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblCedulaRespNuevo" text="{i18n>lblCedulaRespNuevo}" visible="{viewState>/fields/CedulaRespNuevo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRespNuevo} }"/>
-                        <Input id="inpCedulaRespNuevo" value="{ui>/CedulaRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespNuevo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRespNuevo} &amp;&amp; !${ui>/CedulaRespNuevo} ? 'Error' : 'None' }"/>
+                        <Label id="lblCedulaRespNuevo" text="{i18n>lblCedulaRespNuevo}" visible="{viewState>/fields/CedulaRespNuevo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRespNuevo} }"/>
+                        <Input id="inpCedulaRespNuevo" value="{ui>/CedulaRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRespNuevo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRespNuevo} &amp;&amp; !${ui>/CedulaRespNuevo} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblNombreRespNuevo" text="{i18n>lblNombreRespNuevo}" visible="{viewState>/fields/NombreRespNuevo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreRespNuevo} }"/>
-                        <Input id="inpNombreRespNuevo" value="{ui>/NombreRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespNuevo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/NombreRespNuevo} &amp;&amp; !${ui>/NombreRespNuevo} ? 'Error' : 'None' }"/>
+                        <Label id="lblNombreRespNuevo" text="{i18n>lblNombreRespNuevo}" visible="{viewState>/fields/NombreRespNuevo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreRespNuevo} }"/>
+                        <Input id="inpNombreRespNuevo" value="{ui>/NombreRespNuevo}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreRespNuevo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreRespNuevo} &amp;&amp; !${ui>/NombreRespNuevo} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblPersonaRecibeSim" text="{i18n>lblPersonaRecibeSim}" visible="{viewState>/fields/PersonaRecibeSim}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/PersonaRecibeSim} }"/>
-                        <Input id="inpPersonaRecibeSim" value="{ui>/PersonaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/PersonaRecibeSim}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/PersonaRecibeSim} &amp;&amp; !${ui>/PersonaRecibeSim} ? 'Error' : 'None' }"/>
+                        <Label id="lblPersonaRecibeSim" text="{i18n>lblPersonaRecibeSim}" visible="{viewState>/fields/PersonaRecibeSim}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/PersonaRecibeSim} }"/>
+                        <Input id="inpPersonaRecibeSim" value="{ui>/PersonaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/PersonaRecibeSim}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/PersonaRecibeSim} &amp;&amp; !${ui>/PersonaRecibeSim} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblCedulaRecibeSim" text="{i18n>lblCedulaRecibeSim}" visible="{viewState>/fields/CedulaRecibeSim}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRecibeSim} }"/>
-                        <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRecibeSim}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/CedulaRecibeSim} &amp;&amp; !${ui>/CedulaRecibeSim} ? 'Error' : 'None' }"/>
+                        <Label id="lblCedulaRecibeSim" text="{i18n>lblCedulaRecibeSim}" visible="{viewState>/fields/CedulaRecibeSim}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRecibeSim} }"/>
+                        <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRecibeSim}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRecibeSim} &amp;&amp; !${ui>/CedulaRecibeSim} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblAprobador" text="{i18n>lblAprobador}" visible="{viewState>/fields/Aprobador}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Aprobador} }"/>
-                        <Input id="inpAprobador" value="{ui>/Aprobador}" editable="{viewState>/Editable}" visible="{viewState>/fields/Aprobador}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Aprobador} &amp;&amp; !${ui>/Aprobador} ? 'Error' : 'None' }"/>
+                        <Label id="lblAprobador" text="{i18n>lblAprobador}" visible="{viewState>/fields/Aprobador}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Aprobador} }"/>
+                        <Input id="inpAprobador" value="{ui>/Aprobador}" editable="{viewState>/Editable}" visible="{viewState>/fields/Aprobador}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Aprobador} &amp;&amp; !${ui>/Aprobador} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}" visible="{viewState>/fields/ResponsableGestion}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/ResponsableGestion} }"/>
-                        <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}" visible="{viewState>/fields/ResponsableGestion}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/ResponsableGestion} &amp;&amp; !${ui>/ResponsableGestion} ? 'Error' : 'None' }"/>
+                        <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}" visible="{viewState>/fields/ResponsableGestion}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/ResponsableGestion} }"/>
+                        <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}" visible="{viewState>/fields/ResponsableGestion}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/ResponsableGestion} &amp;&amp; !${ui>/ResponsableGestion} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblTipoEquipo" text="{i18n>lblTipoEquipo}" visible="{viewState>/fields/TipoEquipo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoEquipo} }"/>
-                        <Input id="inpTipoEquipo" value="{ui>/TipoEquipo}" editable="{viewState>/Editable}" visible="{viewState>/fields/TipoEquipo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/TipoEquipo} &amp;&amp; !${ui>/TipoEquipo} ? 'Error' : 'None' }"/>
+                        <Label id="lblTipoEquipo" text="{i18n>lblTipoEquipo}" visible="{viewState>/fields/TipoEquipo}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/TipoEquipo} }"/>
+                        <Input id="inpTipoEquipo" value="{ui>/TipoEquipo}" editable="{viewState>/Editable}" visible="{viewState>/fields/TipoEquipo}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/TipoEquipo} &amp;&amp; !${ui>/TipoEquipo} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
-                        <Label id="lblObservacion" text="{i18n>lblObservacion}" visible="{viewState>/fields/Observacion}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Observacion} }"/>
-                        <TextArea id="txtObservacion" value="{ui>/Observacion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{viewState>/fields/Observacion}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/fields/Observacion} &amp;&amp; !${ui>/Observacion} ? 'Error' : 'None' }"/>
+                        <Label id="lblObservacion" text="{i18n>lblObservacion}" visible="{viewState>/fields/Observacion}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Observacion} }"/>
+                        <TextArea id="txtObservacion" value="{ui>/Observacion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{viewState>/fields/Observacion}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Observacion} &amp;&amp; !${ui>/Observacion} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
                         <Label id="lblObsGestion" text="{i18n>lblObsGestion}" visible="{= ${viewState>/fields/ObsGestion} &amp;&amp; !${viewState>/Editable} }"/>
                         <TextArea id="txtObsGestion" value="{ui>/ObsGestion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= ${viewState>/fields/ObsGestion} &amp;&amp; !${viewState>/Editable} }"/>
@@ -129,7 +129,7 @@
         <footer>
             <OverflowToolbar id="overFlowToolbarFooter">
                 <ToolbarSpacer id="toolbarSpacerFooter"/>
-                <Button id="btnSendRequest" text="{i18n>lblBtnSendRequest}" press="onSendRequest" icon="sap-icon://paper-plane" visible="{viewState>/showSendRequestButton}" type="Emphasized"/>
+                <Button id="btnSendRequest" text="{i18n>lblBtnSendRequest}" press="onSendRequest" icon="sap-icon://paper-plane" visible="{viewState>/showSendRequestButton}" enabled="{viewState>/canSendRequest}" type="Emphasized"/>
                 <Button id="btnSendAction" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendAction" visible="{viewState>/allowAction}"/>
             </OverflowToolbar>
         </footer>
