@@ -119,6 +119,7 @@ sap.ui.define([], () => {
             return aBackendItems.map(item => ({
                 Id_Solicitud: item.Id_Solicitud,
                 CentroCosto: item.Nom_Ceco,
+                Num_Ceco: item.Num_Ceco,
                 Solicitante: item.Nom_completo,
                 Estado: item.Estado,
                 PasoActual: item.Paso_Actual

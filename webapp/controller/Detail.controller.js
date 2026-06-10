@@ -156,8 +156,8 @@ sap.ui.define([
             this._refreshCreateAvailability();
         },
 
-        loadInDisplayMode(sIdSolicitud, sPasoActual) {
-            const oPayload = Adapter.mapDetailQueryPayload(sIdSolicitud, this._getUserPernr());
+        loadInDisplayMode(sIdSolicitud, sPasoActual, sNumCeco) {
+            const oPayload = Adapter.mapDetailQueryPayload(sIdSolicitud, sNumCeco);
 
             sap.ui.core.BusyIndicator.show(0);
 

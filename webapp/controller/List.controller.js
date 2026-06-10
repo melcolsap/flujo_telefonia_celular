@@ -76,7 +76,8 @@ sap.ui.define([
             }
 
             oSplitApp.toDetail(oDetailView, "slide");
-            oDetailView.getController().loadInDisplayMode(oData.Id_Solicitud, oData.PasoActual);
+            //oDetailView.getController().loadInDisplayMode(oData.Id_Solicitud, oData.PasoActual);
+            oDetailView.getController().loadInDisplayMode(oData.Id_Solicitud, oData.PasoActual, oData.Num_Ceco);
         },
 
         onCreate() {
