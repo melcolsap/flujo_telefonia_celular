@@ -19,16 +19,16 @@ sap.ui.define([
         _waitForUserAndLoad() {
             const oUserModel = this.getOwnerComponent().getModel("user");
 
-            if (oUserModel.getProperty("/pernr")) {
-                this._loadRequests();
-                return;
-            }
-
-            oUserModel.attachPropertyChange((oEvent) => {
-                if (oEvent.getParameter("path") === "/pernr" && oEvent.getParameter("value")) {
-                    this._loadRequests();
+            const fnTryLoad = () => {
+                if (this._bRequestsLoaded || !oUserModel.getProperty("/pernr")) {
+                    return;
                 }
-            });
+                this._bRequestsLoaded = true;
+                this._loadRequests();
+            };
+
+            fnTryLoad();
+            oUserModel.attachEvent("change", fnTryLoad);
         },
 
         _loadRequests() {
@@ -63,8 +63,7 @@ sap.ui.define([
         },
 
         _getDetailView() {
-            const oSplitApp = this._getSplitApp();
-            return oSplitApp?.getDetailPages()[0];
+            return this._getSplitApp()?.getDetailPages()[0];
         },
 
         onListItemPress(oEvent) {

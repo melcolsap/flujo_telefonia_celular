@@ -36,30 +36,25 @@ sap.ui.define([
 
             const sEmail = sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "carlos.bermudez@melcol.com.co";
 
-            let sPernr = "";
-            try {
-                sPernr = await this._readPernrRequest(sEmail);
-            } catch (oError) {
-                console.warn("No se pudo obtener Pernr del usuario:", oError);
-            }
-
+            //const sPernr = await this._readPernrRequest(sEmail);
+            const sPernr = 1837;
             oUserModel.setData({
                 email: sEmail,
                 pernr: sPernr
             });
             console.log("Model user: ", oUserModel);
         },
-/*
+
         _readPernrRequest(sEmail) {
             return new Promise((resolve, reject) => {
                 const sCorreoEncoded = encodeURIComponent(sEmail);
                 
-                this.getModel().read("/Listado_GerentesSet(Correo='" + sCorreoEncoded + "')", {
+                this.getModel().read("/Consultar_PernrSet(Correo='" + sCorreoEncoded + "')", {
                     success: oData => resolve(oData.Pernr),
                     error: reject
                 });
             });
         }
-*/
+
     });
 });

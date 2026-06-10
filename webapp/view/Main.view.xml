@@ -1,7 +1,18 @@
 <mvc:View controllerName="co.mitsubishi.flujotelefoniacelular.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true"
+    height="100%">
+    <Page id="mainPage" showHeader="false" enableScrolling="false" class="sapUiNoContentPadding">
+        <content>
+            <SplitApp id="splitApp">
+                <masterPages>
+                    <mvc:XMLView id="listView" viewName="co.mitsubishi.flujotelefoniacelular.view.List"/>
+                </masterPages>
+                <detailPages>
+                    <mvc:XMLView id="detailView" viewName="co.mitsubishi.flujotelefoniacelular.view.Detail"/>
+                </detailPages>
+            </SplitApp>
+        </content>
     </Page>
 </mvc:View>
