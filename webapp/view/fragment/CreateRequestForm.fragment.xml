@@ -1,0 +1,183 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+
+    <!-- Formulario de creación de solicitud -->
+    <form:SimpleForm id="requestSimpleForm2" layout="ResponsiveGridLayout">
+        <Label id="lblCreadorSolicitud2" text="{i18n>lblCreadorSolicitud}" required="true"/>
+        <Input id="inpCreadorSolicitud2" value="{ui>/CreadorSolicitudPernr}" editable="false"/>
+
+        <Label id="lblTipoViaje" text="{i18n>lblTipoViaje}" required="true"/>
+        <Select id="selTipoViaje" selectedKey="{ui>/TipoViaje}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemTipoViaje1" key="NACIONAL" text="{i18n>optTipoViajeNacional}"/>
+                <core:Item id="itemTipoViaje2" key="INTERNACIONAL" text="{i18n>optTipoViajeInternacional}"/>
+            </items>
+        </Select>
+
+        <Label id="lblCedulaCiudadania" text="{i18n>lblCedulaCiudadania}" required="true"/>
+        <Input id="inpCedulaCiudadania" value="{ui>/CedulaCiudadania}" editable="{viewState>/Editable}" change="onCedulaCiudadaniaChange"/>
+
+        <Label id="lblNombrePasajero" text="{i18n>lblNombrePasajero}" required="true"/>
+        <Input id="inpNombrePasajero" value="{ui>/NombrePasajero}" editable="{viewState>/Editable}"/>
+
+        <!-- SI / NO -->
+        <Label id="lblFormatoPreaprobacion" text="{i18n>lblFormatoPreaprobacion}" required="true"/>
+        <Select id="selFormatoPreaprobacion" selectedKey="{ui>/FormatoPreaprobacion}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemFormatoPreaprobacion1" key="" text="{i18n>optionNo}"/>
+                <core:Item id="itemFormatoPreaprobacion2" key="X" text="{i18n>optionYes}"/>
+            </items>
+        </Select>
+
+        <!-- Campos dependiente de FormatoPreaprobacion -->
+        <Label id="lblIdFormato" text="{i18n>lblIdFormato}"/>
+        <Input id="inpIdFormato" value="{ui>/IdFormato}"  enabled="{= ${viewState>/Editable} &amp;&amp; ${ui>/FormatoPreaprobacion} === 'X'}" />
+        <Label id="lblTipoGasto" text="{i18n>lblTipoGasto}"/>
+        <Select id="selTipoGasto" selectedKey="{ui>/TipoGasto}" enabled="{= ${viewState>/Editable} &amp;&amp; ${ui>/FormatoPreaprobacion} === 'X'}" items="{tiposGasto>/}">
+            <items>
+                <core:Item id="itemTipoGasto" key="{tiposGasto>Id_Tipo}" text="{tiposGasto>Nom_Tipo}"/>
+            </items>
+        </Select>
+
+        <Label id="lblLegalizacionTarjetaCorporativa" text="{i18n>lblLegalizacionTarjetaCorporativa}" required="true"/>
+        <Select id="selLegalizacionTarjetaCorporativa" selectedKey="{ui>/LegalizacionTarjetaCorporativa}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemLegalizacionTarjetaCorporativa1" key="" text="{i18n>optionNo}"/>
+                <core:Item id="itemLegalizacionTarjetaCorporativa2" key="X" text="{i18n>optionYes}"/>
+            </items>
+        </Select>
+        <!-- Mensaje en caso SI requiera legalización -->
+        <Label id="lblLegalizacionMensaje" text="" />
+        <MessageStrip id="msgLegalizacionMensaje" text="En caso de requerir legalización, el empleado debe entregar al área administrativa el formato para la legalización del gasto del tiquete." type="Warning" showIcon="true" />
+
+
+        <Label id="lblMotivoDelViaje" text="{i18n>lblMotivoDelViaje}" required="true" />
+        <TextArea id="textAreaMotivoDelViaje" value="{ui>/MotivoDelViaje}" editable="{viewState>/Editable}" />
+
+        <Label id="lblImputacionGasto" text="" />
+        <MessageStrip id="msgImputacionGasto" text="Indique donde se carga el tiquete: Orden, Grafo u OP según corresponda." type="Information" showIcon="true"/>
+        <Label id="lblOrden" text="{i18n>lblOrden}"/>
+        <Input id="inpOrden" value="{ui>/Orden}" editable="{viewState>/Editable}"/>
+        <Label id="lblInstruccionesOrden" text="" />
+        <Text id="txtInstruccionesOrden" text="Ingrese la orden si aplica." wrapping="true" />
+
+        <Label id="lblGrafo" text="{i18n>lblGrafo}"/>
+        <Input id="inpGrafo" value="{ui>/Grafo}" editable="{viewState>/Editable}"/>
+        <Label id="lblInstruccionesGrafo" text="" />
+        <Text id="txtInstruccionesGrafo" text="Ingrese el grafo si aplica." wrapping="true" />
+
+        <Label id="lblOP" text="{i18n>lblOP}"/>
+        <Input id="inpOP" value="{ui>/OP}" editable="{viewState>/Editable}"/>
+        <Label id="lblInstruccionesOP" text="" />
+        <Text id="txtInstruccionesOP" text="Ingrese la(s) operación(es) si aplica. Formato: ###-###-###. Para varias, sepárelas con espacio." wrapping="true" />
+
+        <Label id="lblEquipajeDeMano" text="{i18n>lblEquipajeDeMano}" required="true"/>
+        <Select id="selEquipajeDeMano" selectedKey="{ui>/EquipajeDeMano}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemEquipajeDeMano1" key="" text="{i18n>optionNo}"/>
+                <core:Item id="itemEquipajeDeMano2" key="X" text="{i18n>optionYes}"/>
+            </items>
+        </Select>
+
+        <Label id="lblEquipajeDeBodega" text="{i18n>lblEquipajeDeBodega}" required="true"/>
+        <Select id="selEquipajeDeBodega" selectedKey="{ui>/EquipajeDeBodega}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemEquipajeDeBodega1" key="" text="{i18n>optionNo}"/>
+                <core:Item id="itemEquipajeDeBodega2" key="X" text="{i18n>optionYes}"/>
+            </items>
+        </Select>
+
+        <Label id="lblPrimerAprobador" text="{i18n>lblPrimerAprobador}" required="true"/>
+        <Select id="selPrimerAprobador" selectedKey="{ui>/PrimerAprobador}" items="{aprobadores>/}" change="onPrimerAprobadorChange" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemsPrimerAprobador" key="{aprobadores>Num_Personal}" text="{aprobadores>Nom_Aprob}"/>
+            </items>
+        </Select>
+
+        <Label id="lblSegundoAprobador" text="{i18n>lblSegundoAprobador}" required="true"/>
+        <Select id="selSegundoAprobador" selectedKey="{ui>/SegundoAprobador}" items="{aprobadoresFiltrados>/}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemsSegundoAprobador" key="{aprobadoresFiltrados>Num_Personal}" text="{aprobadoresFiltrados>Nom_Aprob}"/>
+            </items>
+        </Select>
+
+        <Label id="lblReservaEnHotel" text="{i18n>lblReservaEnHotel}" required="true"/>
+        <Select id="selReservaEnHotel" selectedKey="{ui>/ReservaEnHotel}" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemReservaEnHotel1" key="" text="{i18n>optionNo}"/>
+                <core:Item id="itemReservaEnHotel2" key="X" text="{i18n>optionYes}"/>
+            </items>
+        </Select>
+
+        <Label id="lblNumeroCentroCoste" text="{i18n>lblNumeroCentroCoste}" required="true"/>
+        <Input id="inpNumeroCentroCoste" value="{ui>/NumeroCentroCoste}" editable="{viewState>/Editable}" showValueHelp="true" valueHelpRequest=".onCentroCosteVHRequest"/>
+
+        <Label id="lblNombreCentroCoste" text="{i18n>lblNombreCentroCoste}" required="true"/>
+        <Input id="inpNombreCentroCoste" value="{ui>/NombreCentroCoste}" editable="{viewState>/Editable}"/>
+
+        <Label id="lblTipoRuta" text="{i18n>lblTipoRuta}" required="true"/>
+        <Select id="selRutas" selectedKey="{ui>/TipoRuta}" items="{rutas>/}" change="onTipoRutaChange" editable="{viewState>/Editable}">
+            <items>
+                <core:Item id="itemsRutas" key="{rutas>Llave}" text="{rutas>Nom_Ruta}"/>
+            </items>
+        </Select>
+    </form:SimpleForm>
+
+    <VBox id="vboxObservacionCreador" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+        <Title id="titleObservacionCreador" text="{i18n>lblObservacionCreador}" level="Auto"/>
+        <TextArea id="textAreaObservacionCreador" value="{ui>/ObservacionCreador}" editable="{viewState>/Editable}" rows="4" growing="true" width="100%" />
+    </VBox>
+
+
+    <!-- Tabla de rutas/vuelos -->
+    <Toolbar id="toolbarRutas">
+        <Title id="titleRutasTable" text="{i18n>lblRutas}"/>
+        <ToolbarSpacer id="toolbarSpacer2"/>
+        <Button id="btnAddRutas" icon="sap-icon://add" visible="{viewState>/allowAddRutas}" press=".onAddRuta" />
+    </Toolbar>
+
+    <Table id="tableRutas" items="{ui>/Rutas}">
+        <columns>
+            <Column id="columnOrigen">
+                <Text id="textColumnOrigen" text="Origen"/>
+            </Column>
+            <Column id="columnDestino" demandPopin="true" minScreenWidth="Tablet">
+                <Text id="textColumnDestino" text="Destino"/>
+            </Column>
+            <Column id="columnFechaIda" demandPopin="true" minScreenWidth="Desktop">
+                <Text id="textColumnFechaIda" text="Fecha ida"/>
+            </Column>
+            <Column id="columnHoraIda" demandPopin="true" minScreenWidth="Desktop">
+                <Text id="textColumnHoraIda" text="Hora ida"/>
+            </Column>
+            <Column id="columnFechaRegreso" demandPopin="true" minScreenWidth="Desktop">
+                <Text id="textColumnFechaRegreso" text="Fecha regreso"/>
+            </Column>
+            <Column id="columnHoraRegreso" demandPopin="true" minScreenWidth="Desktop">
+                <Text id="textColumnHoraRegreso" text="Hora regreso"/>
+            </Column>
+            <Column id="columnAction" demandPopin="true" minScreenWidth="Desktop" visible="{viewState>/allowRemoveRutas}">
+                <Text id="textColumnAction" text="Acción"/>
+            </Column>
+        </columns>
+
+
+        <items>
+            <ColumnListItem id="columListItemRutas">
+                <cells>
+                    <Input id="inpOrigenRuta" value="{ui>ORIGEN}" editable="{viewState>/Editable}" />
+                    <Input id="inpDestinoRuta" value="{ui>DESTINO}" editable="{viewState>/Editable}" />
+                    <DatePicker id="dpFechaIda" value="{ui>FECHA_IDA}" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" editable="{viewState>/Editable}" />
+                    <TimePicker id="dpHoraIda" value="{ui>HORA_IDA}" valueFormat="HHmmss" displayFormat="HH:mm" editable="{viewState>/Editable}" />
+
+                    <DatePicker id="dpFechaRegreso" value="{ui>FECHA_REGRESO}" valueFormat="yyyyMMdd" displayFormat="dd.MM.yyyy" enabled="{viewState>/isRegresoEnabled}" editable="{viewState>/Editable}"/>
+
+                    <TimePicker id="dpHoraRegreso" value="{ui>HORA_REGRESO}" valueFormat="HHmmss" displayFormat="HH:mm" enabled="{viewState>/isRegresoEnabled}" editable="{viewState>/Editable}"/>
+
+                    <Button id="btnRemoveRuta" icon="sap-icon://delete" press=".onRemoveRuta" visible="{viewState>/allowRemoveRutas}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="initialMessageDialog" stretch="true" showHeader="false">
+        <VBox id="vboxInitialMessage" class="sapUiContentPadding sapUiSmallMargin">
+            <MessageStrip id="messageStripInitialMessage" text="Información importante" type="Information" showIcon="true" class="sapUiSmallMarginBottom"/>
+            <FormattedText id="formattedTextInitialMessage" htmlText="{i18n>initialMessage}" />
+        </VBox>
+
+        <beginButton>
+            <Button id="btnAcceptInitialMessage" type="Emphasized" text="{i18n>btnAccept}" press=".onCloseInitialMessage" />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>
