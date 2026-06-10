@@ -9,233 +9,110 @@
         <content>
             <VBox id="mainDetailPageVbox" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 
-                <!-- ===== Formulario Creación Solicitud - Rutas de Vuelos ===== -->
                 <Panel id="panelRequestForm" headerText="{i18n>titleRequestForm}" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
-                    <core:Fragment fragmentName="co.mitsubishi.flujotelefoniacelular.view.fragment.CreateRequestForm" />
+                    <form:SimpleForm id="requestSimpleForm" editable="{viewState>/Editable}" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+                        <Label id="lblCreadorSolicitud" text="{i18n>lblCreadorSolicitud}"/>
+                        <Input id="inpCreadorSolicitud" value="{ui>/CreadorSolicitud}" editable="false"/>
+
+                        <Label id="lblTipoSolicitud" text="{i18n>lblTipoSolicitud}"/>
+                        <Input id="inpTipoSolicitud" value="{ui>/TipoSolicitud}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblSolicitante" text="{i18n>lblSolicitante}"/>
+                        <Input id="inpSolicitante" value="{ui>/Solicitante}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblNombreSolicitante" text="{i18n>lblNombreSolicitante}"/>
+                        <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblCiudad" text="{i18n>lblCiudad}"/>
+                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}"/>
+                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblLinea" text="{i18n>lblLinea}"/>
+                        <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblCedulaRespActual" text="{i18n>lblCedulaRespActual}"/>
+                        <Input id="inpCedulaRespActual" value="{ui>/CedulaRespActual}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblNombreRespActual" text="{i18n>lblNombreRespActual}"/>
+                        <Input id="inpNombreRespActual" value="{ui>/NombreRespActual}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblCedulaRespNuevo" text="{i18n>lblCedulaRespNuevo}"/>
+                        <Input id="inpCedulaRespNuevo" value="{ui>/CedulaRespNuevo}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblNombreRespNuevo" text="{i18n>lblNombreRespNuevo}"/>
+                        <Input id="inpNombreRespNuevo" value="{ui>/NombreRespNuevo}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblPersonaRecibeSim" text="{i18n>lblPersonaRecibeSim}"/>
+                        <Input id="inpPersonaRecibeSim" value="{ui>/PersonaRecibeSim}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblCedulaRecibeSim" text="{i18n>lblCedulaRecibeSim}"/>
+                        <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblAprobador" text="{i18n>lblAprobador}"/>
+                        <Input id="inpAprobador" value="{ui>/Aprobador}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}"/>
+                        <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblTipoEquipo" text="{i18n>lblTipoEquipo}"/>
+                        <Input id="inpTipoEquipo" value="{ui>/TipoEquipo}" editable="{viewState>/Editable}"/>
+
+                        <Label id="lblObservacion" text="{i18n>lblObservacion}"/>
+                        <TextArea id="txtObservacion" value="{ui>/Observacion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200"/>
+
+                        <Label id="lblObsGestion" text="{i18n>lblObsGestion}"/>
+                        <TextArea id="txtObsGestion" value="{ui>/ObsGestion}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= !${viewState>/Editable} }"/>
+
+                        <Label id="lblObsAprobador" text="{i18n>lblObsAprobador}"/>
+                        <TextArea id="txtObsAprobador" value="{ui>/ObsAprobador}" editable="{viewState>/Editable}" rows="3" growing="true" maxLength="200" visible="{= !${viewState>/Editable} }"/>
+                    </form:SimpleForm>
+
+                    <VBox id="vboxCreateAttachments" visible="{viewState>/Editable}" class="sapUiSmallMarginTop">
+                        <Label id="lblCreateAdjuntos" text="{i18n>titleAdjuntos}"/>
+                        <unified:FileUploader id="fileUploaderAttachments" width="100%" change="onFileChange" uploadOnChange="false"/>
+                        <List id="listAttachments" items="{ui>/Adjuntos}" mode="SingleSelect" growing="true">
+                            <headerToolbar>
+                                <OverflowToolbar id="toolbarCreateAttachments">
+                                    <ToolbarSpacer id="toolbarSpacerCreateAttachments"/>
+                                    <Button id="btnRemoveAttachment" icon="sap-icon://delete" type="Transparent" tooltip="Eliminar adjunto" press="onRemoveAttachment"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <items>
+                                <StandardListItem id="itemCreateAttachment" title="{ui>Nombre}" description="{ui>Tipo}"/>
+                            </items>
+                        </List>
+                    </VBox>
                 </Panel>
 
-                <!-- ===== Cotizaciones ===== -->
-                <Panel id="panelCotizaciones" headerText="{i18n>titleCotizaciones}" visible="{viewState>/showCotizaciones}" class="sapUiSmallMarginBottom">
-                    <form:SimpleForm id="cotizacionesSimpleForm" layout="ResponsiveGridLayout">
+                <Panel id="panelAcciones" headerText="{i18n>titleAcciones}" visible="{viewState>/showActionPanel}" class="sapUiSmallMarginBottom">
+                    <form:SimpleForm id="actionSimpleForm" layout="ResponsiveGridLayout">
                         <Label id="lblAcciones" text="{i18n>lblAcciones}"/>
-                        <Select id="selectActionCotizaciones" selectedKey="{}" visible="{viewState>/allowSendCotizaciones}">
+                        <Select id="selectAction" visible="{viewState>/allowAction}">
                             <items>
-                                <core:Item id="itemAccion1" key="SEND" text="{i18n>optAccionEnviarCotizaciones}"/>
-                                <core:Item id="itemAccion2" key="FINISH" text="{i18n>optAccionFinalizar}"/>
+                                <core:Item id="itemAccionAprobar" key="3" text="{i18n>optAccionAprobar}"/>
+                                <core:Item id="itemAccionRechazar" key="4" text="{i18n>optAccionRechazar}"/>
+                                <core:Item id="itemAccionFinalizar" key="5" text="{i18n>optAccionFinalizar}"/>
                             </items>
                         </Select>
 
-                        <Label id="lblObservaciones" text="{i18n>lblObservaciones}"/>
-                        <TextArea id="txtAreaObservacionesCotizaciones" value="{ui>/ObservacionCotizaciones}" editable="{viewState>/allowSendCotizaciones}" rows="3" growing="true" maxLength="180" showExceededText="true"/>
-                    </form:SimpleForm>
-                    <!-- ADJUNTOS -->
-                    <VBox id="vboxAttachments">
-                        <Label id="lblAttachments" text="Cargar archivos" visible="{viewState>/allowSendCotizaciones}"/>
-                        <unified:FileUploader id="fileUploaderAttachments" width="100%" change="onFileChange" uploadOnChange="false" visible="{viewState>/allowSendCotizaciones}" />
-
-                        <List id="listAttachments" items="{ui>/Adjuntos}" mode="SingleSelect" growing="true" visible="{viewState>/allowSendCotizaciones}">
-                            <!-- Toolbar superior -->
-                            <headerToolbar>
-                                <OverflowToolbar id="toolbarAttachments">
-                                    <ToolbarSpacer id="toolbarSpacerAttachments"/>
-                                    <Button id="btnRemoveAttachment" icon="sap-icon://delete" type="Transparent" tooltip="Eliminar adjunto" press="onRemoveAttachment" visible="{viewState>/allowSendCotizaciones}"/>
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <items>
-                                <StandardListItem id="itemAttachment" title="{ui>Nombre}" description="{ui>Tipo}" />
-                            </items>
-                        </List>
-                    </VBox>
-                </Panel>
-
-                <!-- ===== Observaciones Aprobador Creador ===== -->
-                <Panel id="panelAprobacionCreador" headerText="Aprobación del creador" visible="{viewState>/showAprobacionCreador}" class="sapUiSmallMarginBottom">
-                    <form:SimpleForm id="simpleFormAprobacionCreador" layout="ResponsiveGridLayout">
-                        <Label id="lblAccionAprobacionCreador" text="{i18n>lblAcciones}"/>
-                        <Select id="selectActionAprobacionCreador" selectedKey="{}" visible="{viewState>/allowCreatorApproval}">
-                            <items>
-                                <core:Item id="itemAccionAprobCre1" key="APPROVE" text="{i18n>optAccionAprobar}"/>
-                                <core:Item id="itemAccionAprobCre2" key="REJECT" text="{i18n>optAccionRechazar}"/>
-                                <core:Item id="itemAccionAprobCre3" key="FINISH" text="{i18n>optAccionFinalizar}"/>
-                            </items>
-                        </Select>
-
-                        <Label id="lblObsAprobacionCreador" text="Observación aprobación" />
-                        <TextArea id="txtObsAprobacionCreador" editable="{viewState>/allowCreatorApproval}" value="{ui>/ObservacionAprobacionCreador}" rows="3" growing="true" maxLength="180" showExceededText="true" />
+                        <Label id="lblObservacionesAccion" text="{i18n>lblObservaciones}"/>
+                        <TextArea id="txtAreaObservaciones" rows="3" growing="true" maxLength="200" editable="{viewState>/allowAction}"/>
                     </form:SimpleForm>
                 </Panel>
 
-                <!-- ===== Observaciones Aprobador Director ===== -->
-                <Panel id="panelAprobacionDirector" headerText="Aprobación del Gerente o Director" visible="{viewState>/showAprobacionDirector}" class="sapUiSmallMarginBottom">
-                    <form:SimpleForm id="simpleFormAprobacionDirector" layout="ResponsiveGridLayout">
-                        <Label id="lblAccionAprobacionDirector" text="{i18n>lblAcciones}"/>
-                        <Select id="selectActionAprobacionDirector" selectedKey="{}" visible="{viewState>/allowDirectorApproval}">
-                            <items>
-                                <core:Item id="itemAccionAprobDir1" key="APPROVE" text="{i18n>optAccionAprobar}"/>
-                                <core:Item id="itemAccionAprobDir2" key="REJECT" text="{i18n>optAccionRechazar}"/>
-                                <core:Item id="itemAccionAprobDir3" key="FINISH" text="{i18n>optAccionFinalizar}"/>
-                            </items>
-                        </Select>
-
-                        <Label id="lblObsAprobacionDirector" text="Observación aprobación" />
-                        <TextArea id="txtObsAprobacionDirector" editable="{viewState>/allowDirectorApproval}" placeholder="En caso de aprobación-especifique la cotización que aprueba" value="{ui>/ObservacionAprobacionDirector}" rows="3" growing="true" maxLength="180" showExceededText="true" />
-                    </form:SimpleForm>
-                </Panel>
-
-                <!-- ===== Envío de Tiquetes ===== -->
-                <Panel id="panelTiquetes" headerText="Envío de Tiquetes" visible="{viewState>/showTiquetes}" class="sapUiSmallMarginBottom">
-                    <form:SimpleForm id="simpleFormTiquetes" layout="ResponsiveGridLayout">
-                        <Label id="lblActionTiquetes" text="{i18n>lblAcciones}"/>
-                        <Select id="selectActionTiquetes" selectedKey="{}" visible="{viewState>/allowSendTiquetes}">
-                            <items>
-                                <core:Item id="itemActionTiquetes1" key="SEND" text="Enviar tiquetes"/>
-                                <core:Item id="itemActionTiquetes2" key="FINISH" text="{i18n>optAccionFinalizar}"/>
-                            </items>
-                        </Select>
-
-                        <Label id="lblObservacionesTiquetes" text="{i18n>lblObservaciones}"/>
-                        <TextArea id="txtAreaObservacionesTiquetes" value="{ui>/ObservacionEnvioTiquetes}" editable="{viewState>/allowSendTiquetes}" rows="3" growing="true" maxLength="180" showExceededText="true"/>
-                    </form:SimpleForm>
-                    <!-- ADJUNTOS -->
-                    <VBox id="vboxAttachmentsTiquetes">
-                        <Label id="lblAttachmentsTiquetes" text="Cargar archivos" visible="{viewState>/allowSendTiquetes}"/>
-                        <unified:FileUploader id="fileUploaderTiquetes" width="100%" change="onFileChangeTiquetes" uploadOnChange="false" visible="{viewState>/allowSendTiquetes}" />
-
-                        <List id="listAttachmentsTiquetes" items="{ui>/AdjuntosTiquetes}" mode="SingleSelect" growing="true">
-                            <headerToolbar>
-                                <OverflowToolbar id="toolbarAttachmentsTiquetes">
-                                    <ToolbarSpacer id="toolbarSpacerAttachmentsTiquetes"/>
-                                    <Button id="btnRemoveAttachmentTiquetes" icon="sap-icon://delete" type="Transparent" tooltip="Eliminar adjunto" press="onRemoveAttachmentTiquetes" visible="{viewState>/allowSendTiquetes}"/>
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <items>
-                                <StandardListItem id="listItemAttachmentTiquetes" title="{ui>Nombre}" description="{ui>Tipo}" />
-                            </items>
-                        </List>
-                    </VBox>
-                </Panel>
-
-                <!-- ===== Reserva de Hotel ===== -->
-                <Panel id="panelHotel" headerText="Reserva de Hotel" visible="{viewState>/showHotelSection}" class="sapUiSmallMarginBottom">
-                    <!--  Cantidad de reservas  -->
-                    <form:SimpleForm id="simpleFormHotelCantidad" layout="ResponsiveGridLayout">
-                        <Label id="lblCantidadHoteles" text="Cantidad de reservas"/>
-                        <Select id="selectCantidadHoteles" selectedKey="{ui>/CantidadHoteles}" editable="{viewState>/allowEditHotelSection}">
-                            <items>
-                                <core:Item id="itemHotel0" key="" text="Seleccione cantidad"/>
-                                <core:Item id="itemHotel1" key="1" text="1"/>
-                                <core:Item id="itemHotel2" key="2" text="2"/>
-                                <core:Item id="itemHotel3" key="3" text="3"/>
-                                <core:Item id="itemHotel4" key="4" text="4"/>
-                                <core:Item id="itemHotel5" key="5" text="5"/>
-                            </items>
-                        </Select>
-
-                    </form:SimpleForm>
-                    <!--  SUBPANEL HOTEL 1 -->
-                    <Panel id="panelHotel1" headerText="Hotel 1" visible="{= ${ui>/CantidadHoteles} >= '1' }" class="sapUiSmallMarginTop">
-                        <form:SimpleForm id="simpleFormHotel1" layout="ResponsiveGridLayout">
-                            <Label id="lblResponsableHotel1" text="Responsable"/>
-                            <Select id="selectResponsableHotel1" selectedKey="{ui>/ResponsableHotel1}" items="{responsablesHotel>/}" editable="{viewState>/allowEditHotelSection}">
-                                <items>
-                                    <core:Item id="itemResponsableHotel" key="{responsablesHotel>Pernr_responsable}" text="{responsablesHotel>Nombre}" />
-                                </items>
-                            </Select>
-                        </form:SimpleForm>
-                    </Panel>
-                    <!--  SUBPANEL HOTEL 2  -->
-                    <Panel id="panelHotel2" headerText="Hotel 2" visible="{= ${ui>/CantidadHoteles} >= '2' }" class="sapUiSmallMarginTop">
-                        <form:SimpleForm id="simpleFormHotel2" layout="ResponsiveGridLayout">
-                            <Label id="lblResponsableHotel2" text="Responsable"/>
-                            <Select id="selectResponsableHotel2" selectedKey="{ui>/ResponsableHotel2}" items="{responsablesHotel>/}" editable="{viewState>/allowEditHotelSection}">
-                                <items>
-                                    <core:Item id="itemResponsableHotel2" key="{responsablesHotel>Pernr_responsable}" text="{responsablesHotel>Nombre}" />
-                                </items>
-                            </Select>
-                        </form:SimpleForm>
-                    </Panel>
-                    <!--  SUBPANEL HOTEL 3  -->
-                    <Panel id="panelHotel3" headerText="Hotel 3" visible="{= ${ui>/CantidadHoteles} >= '3' }" class="sapUiSmallMarginTop">
-                        <form:SimpleForm id="simpleFormHotel3" layout="ResponsiveGridLayout">
-                            <Label id="lblResponsableHotel3" text="Responsable"/>
-                            <Select id="selectResponsableHotel3" selectedKey="{ui>/ResponsableHotel3}" items="{responsablesHotel>/}" editable="{viewState>/allowEditHotelSection}">
-                                <items>
-                                    <core:Item id="itemResponsableHotel3" key="{responsablesHotel>Pernr_responsable}" text="{responsablesHotel>Nombre}" />
-                                </items>
-                            </Select>
-                        </form:SimpleForm>
-                    </Panel>
-                    <!--  SUBPANEL HOTEL 4  -->
-                    <Panel id="panelHotel4" headerText="Hotel 4" visible="{= ${ui>/CantidadHoteles} >= '4' }" class="sapUiSmallMarginTop">
-                        <form:SimpleForm id="simpleFormHotel4" layout="ResponsiveGridLayout">
-                            <Label id="lblResponsableHotel4" text="Responsable"/>
-                            <Select id="selectResponsableHotel4" selectedKey="{ui>/ResponsableHotel4}" items="{responsablesHotel>/}" editable="{viewState>/allowEditHotelSection}">
-                                <items>
-                                    <core:Item id="itemResponsableHotel4" key="{responsablesHotel>Pernr_responsable}" text="{responsablesHotel>Nombre}" />
-                                </items>
-                            </Select>
-                        </form:SimpleForm>
-                    </Panel>
-                    <!--  SUBPANEL HOTEL 5  -->
-                    <Panel id="panelHotel5" headerText="Hotel 5" visible="{= ${ui>/CantidadHoteles} >= '5' }" class="sapUiSmallMarginTop">
-                        <form:SimpleForm id="simpleFormHotel5" layout="ResponsiveGridLayout">
-                            <Label id="lblResponsableHotel5" text="Responsable"/>
-                            <Select id="selectResponsableHotel5" selectedKey="{ui>/ResponsableHotel5}" items="{responsablesHotel>/}" editable="{viewState>/allowEditHotelSection}">
-                                <items>
-                                    <core:Item id="itemResponsableHotel5" key="{responsablesHotel>Pernr_responsable}" text="{responsablesHotel>Nombre}" />
-                                </items>
-                            </Select>
-                        </form:SimpleForm>
-                    </Panel>
-                </Panel>
-
-                <!-- ===== Visualización Reservas de Hotel ===== -->
-                <Panel id="panelDisplayHoteles" headerText="Reservas de Hotel" visible="{viewState>/showReservasHoteles}" class="sapUiSmallMarginBottom">
-                    <List id="listHoteles" items="{ui>/Hoteles}" growing="true">
-                        <items>
-                            <CustomListItem id="itemHotel">
-                                <VBox id="vboxHotelItem" class="sapUiSmallMargin">
-                                    <Text id="txtHotelId" text="Hotel {ui>Id_Hotel}" />
-                                    <Text id="txtResponsableHotel" text="Responsable: {ui>RESPONSABLE_HOTEL}" />
-                                    <Text id="txtObservacionHotel" text="Observación: {ui>OBSERVACION_HOTEL}" wrapping="true" />
-                                    <Text id="txtAdjuntoHotel" text="Archivo: {ui>Nombre_Adjunto}" visible="{= !!${ui>Nombre_Adjunto} }" />
-                                </VBox>
-                            </CustomListItem>
-                        </items>
-                    </List>
-                </Panel>
-
-                <!-- ===== Envío Reserva Hotel ===== -->
-                <Panel id="panelEnvioHotel" headerText="Envío Reserva Hotel" visible="{viewState>/showEnvioReservaHotel}" class="sapUiSmallMarginBottom">
-                    <form:SimpleForm id="simpleFormEnvioHotel" layout="ResponsiveGridLayout">
-                        <Label id="lblHotelEnvio" text="Hotel"/>
-                        <Select id="selectHotelEnvio" selectedKey="{ui>/HotelSeleccionado}" editable="{viewState>/allowSendReservaHotel}" items="{ui>/Hoteles}">
-                            <items>
-                                <core:Item id="itemHotelEnvio" key="{ui>Id_Hotel}" text="Hotel {ui>Id_Hotel}"/>
-                            </items>
-                        </Select>
-                        <Label id="lblObservacionHotelEnvio" text="Observación"/>
-                        <TextArea id="textAreaObservacionHotelEnvio" editable="{viewState>/allowSendReservaHotel}" value="{ui>/ObservacionHotelEnvio}" rows="3" growing="true" maxLength="180" showExceededText="true"/>
-                    </form:SimpleForm>
-                    <!-- ADJUNTO -->
-                    <VBox id="vboxAdjuntoHotelEnvio" visible="{viewState>/allowSendReservaHotel}">
-                        <Label id="lblAdjuntoHotelEnvio" text="Adjuntar archivo"/>
-                        <unified:FileUploader id="fileUploaderAdjuntoHotelEnvio" change="onFileChangeHotelEnvio"/>
-                    </VBox>
-                </Panel>
-
-                <!-- ===== TODOS LOS ADJUNTOS ===== -->
-                <Panel id="panelAdjuntos" headerText="Adjuntos" visible="{viewState>/showAdjuntos}">
+                <Panel id="panelAdjuntos" headerText="{i18n>titleAdjuntos}" visible="{viewState>/showAdjuntos}">
                     <headerToolbar>
-                        <Toolbar id="toolbarAdjuntos">
-                            <Title id="titlePanelAdjuntos" text="Archivos Adjuntos"></Title>
-                            <ToolbarSpacer id="toolbarSpacerAdjuntos"/>
-                            <Button id="btnDownloadAttachments" icon="sap-icon://download" text="Descargar" press="onDownloadAttachments" />
+                        <Toolbar id="toolbarPanelAdjuntos">
+                            <Title id="titlePanelAdjuntos" text="{i18n>titleAdjuntos}"/>
+                            <ToolbarSpacer id="toolbarSpacerPanelAdjuntos"/>
+                            <Button id="btnDownloadAttachments" icon="sap-icon://download" text="Descargar" press="onDownloadAttachments"/>
                         </Toolbar>
                     </headerToolbar>
                     <List id="listAttachmentsPanel" items="{ui>/Adjuntos}" mode="MultiSelect" growing="true">
                         <items>
-                            <StandardListItem id="itemAttachmentPanel" title="{ui>Nombre}" description="{ui>Tipo}" />
+                            <StandardListItem id="itemPanelAttachment" title="{ui>Nombre}" description="{ui>Tipo}"/>
                         </items>
                     </List>
                 </Panel>
@@ -243,16 +120,10 @@
             </VBox>
         </content>
         <footer>
-            <!-- ===== Footer de acciones - EnviarSolicitud, Aprobar, Rechazar, etc ===== -->
             <OverflowToolbar id="overFlowToolbarFooter">
                 <ToolbarSpacer id="toolbarSpacerFooter"/>
                 <Button id="btnSendRequest" text="{i18n>lblBtnSendRequest}" press="onSendRequest" icon="sap-icon://paper-plane" visible="{viewState>/showSendRequestButton}" type="Emphasized"/>
-                <Button id="btnsendCotizaciones" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendCotizaciones" visible="{viewState>/allowSendCotizaciones}"/>
-                <Button id="btnsendCreatorAction" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendCreatorAction" visible="{viewState>/allowCreatorApproval}"/>
-                <Button id="btnsendDirectorAction" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendDirectorAction" visible="{viewState>/allowDirectorApproval}"/>
-                <Button id="btnsendTiquetes" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendTiquetes" visible="{viewState>/allowSendTiquetes}"/>
-                <Button id="btnsendReservaHotel" text="Enviar Reserva" type="Emphasized" press="onSendReservaHotel" visible="{viewState>/allowSendReservaHotel}"/>
-
+                <Button id="btnSendAction" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendAction" visible="{viewState>/allowAction}"/>
             </OverflowToolbar>
         </footer>
     </Page>

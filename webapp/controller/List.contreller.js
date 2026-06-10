@@ -6,93 +6,90 @@ sap.ui.define([
 
     return Controller.extend("co.mitsubishi.flujotelefoniacelular.controller.List", {
         Adapter: Adapter,
+
         onInit() {
-            this._initUserContext();
             this._initRequestsModel();
-            
-        },
-
-        _initUserContext() {
-            const sEmail = sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "@";
-            this._userEmail = sEmail;
-            this.getOwnerComponent().getModel().metadataLoaded().then(() => {
-                this.getOwnerComponent().getModel().read(
-                    "/Consultar_PernrSet(Correo='" + encodeURIComponent(sEmail) + "')",
-                    {
-                        success: (oData) => {
-                            this._userPernr = oData.Pernr;
-                            console.log("User context:", this._userEmail, this._userPernr);
-
-                            this._loadRequests();
-                        },
-                        error: () => {
-                            console.error("Error al obtener Pernr");
-                            this._userPernr = "";
-                        }
-                    });
-            });
+            this._waitForUserAndLoad();
         },
 
         _initRequestsModel() {
-            const oRequestsModel = new sap.ui.model.json.JSONModel({
-                items: []
-            });
-            this.getView().setModel(oRequestsModel, "requests");
+            this.getView().setModel(new sap.ui.model.json.JSONModel({ items: [] }), "requests");
         },
 
-        _loadRequests() {
-            const sPernr = this._userPernr;
+        _waitForUserAndLoad() {
+            const oUserModel = this.getOwnerComponent().getModel("user");
 
-            const oFilter = new sap.ui.model.Filter(
-                "Pernr",
-                sap.ui.model.FilterOperator.EQ,
-                sPernr
-            );
+            if (oUserModel.getProperty("/pernr")) {
+                this._loadRequests();
+                return;
+            }
 
-            this.getOwnerComponent().getModel().read("/Listado_SolicitudesSet", {
-                filters: [oFilter],
-                success: (oData) => {
-                    const aItemsAdaptados = Adapter.listFromBackend(oData.results);
-                    this.getView().getModel("requests").setProperty("/items", aItemsAdaptados);
+            oUserModel.attachPropertyChange((oEvent) => {
+                if (oEvent.getParameter("path") === "/pernr" && oEvent.getParameter("value")) {
+                    this._loadRequests();
                 }
             });
         },
 
-        onListItemPress(oEvent) {
-            const oData = oEvent.getParameter("listItem")
-                .getBindingContext("requests")
-                .getObject();
+        _loadRequests() {
+            const sPernr = this.getOwnerComponent().getModel("user").getProperty("/pernr");
 
-            // Navegar a vista detalle
-            let oSplitApp = this.getView();
-            while (oSplitApp && !oSplitApp.isA("sap.m.SplitApp")) {
-                oSplitApp = oSplitApp.getParent();
+            if (!sPernr) {
+                return;
             }
 
-            const oDetailPage = oSplitApp.getDetailPages().find(page => page.getId().includes("detailView"));
-            oSplitApp.toDetail(oDetailPage);
+            const oFilter = new sap.ui.model.Filter("Pernr", sap.ui.model.FilterOperator.EQ, sPernr);
 
-            // Obtener controller y ejecutar método para cargar en modo display
-            const oDetail = oDetailPage.getController();
-            oDetail.loadInDisplayMode(oData.Id_Solicitud, oData.PasoActual);
-            console.log("Detalle cargado", oData);
+            this.getOwnerComponent().getModel().read("/Listado_SolicitudesSet", {
+                filters: [oFilter],
+                success: (oData) => {
+                    const aItems = Adapter.listFromBackend(oData.results || []);
+                    this.getView().getModel("requests").setProperty("/items", aItems);
+                },
+                error: () => {
+                    sap.m.MessageToast.show("Error al cargar solicitudes");
+                }
+            });
+        },
 
+        _getSplitApp() {
+            let oControl = this.getView();
+
+            while (oControl && !oControl.isA("sap.m.SplitApp")) {
+                oControl = oControl.getParent();
+            }
+
+            return oControl;
+        },
+
+        _getDetailView() {
+            const oSplitApp = this._getSplitApp();
+            return oSplitApp?.getDetailPages()[0];
+        },
+
+        onListItemPress(oEvent) {
+            const oData = oEvent.getParameter("listItem").getBindingContext("requests").getObject();
+            const oSplitApp = this._getSplitApp();
+            const oDetailView = this._getDetailView();
+
+            if (!oSplitApp || !oDetailView) {
+                return;
+            }
+
+            oSplitApp.toDetail(oDetailView, "slide");
+            oDetailView.getController().loadInDisplayMode(oData.Id_Solicitud, oData.PasoActual);
         },
 
         onCreate() {
-            let oSplitApp = this.getView();
-            while (oSplitApp && !oSplitApp.isA("sap.m.SplitApp")) { // Buscar el componente split app
-                oSplitApp = oSplitApp.getParent();
+            const oSplitApp = this._getSplitApp();
+            const oDetailView = this._getDetailView();
+
+            if (!oSplitApp || !oDetailView) {
+                return;
             }
-            const oDetailPage = oSplitApp.getDetailPages().find(p => p.getId().includes("detailView"));
-            oSplitApp.toDetail(oDetailPage); // Detail View Formulario
 
-            const oDetailController = oDetailPage.getController();
-            oDetailController.loadInCreateMode();
-        },
-
-
-
-
+            oSplitApp.toDetail(oDetailView, "slide");
+            oDetailView.getController().loadInCreateMode();
+        }
     });
 });

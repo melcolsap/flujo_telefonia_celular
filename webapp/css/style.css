@@ -1,1 +1,13 @@
 /* Enter your custom styles here */
+html, body, .sapUiBody, #content, #content--app {
+    height: 100%;
+}
+
+.sapMSplitApp {
+    height: 100%;
+}
+
+.sapMSplitAppDetail .sapMPage,
+.sapMSplitAppMaster .sapMPage {
+    height: 100%;
+}

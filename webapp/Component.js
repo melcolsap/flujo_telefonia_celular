@@ -1,35 +1,65 @@
-/**
- * eslint-disable @sap/ui5-jsdocs/no-jsdoc
- */
-
 sap.ui.define([
-        "sap/ui/core/UIComponent",
-        "sap/ui/Device",
-        "co/mitsubishi/flujotelefoniacelular/model/models"
-    ],
-    function (UIComponent, Device, models) {
-        "use strict";
+    "sap/ui/core/UIComponent",
+    "co/mitsubishi/flujotelefoniacelular/model/models",
+    "sap/ui/model/json/JSONModel"
+], (UIComponent, models, JSONModel) => {
+    "use strict";
 
-        return UIComponent.extend("co.mitsubishi.flujotelefoniacelular.Component", {
-            metadata: {
-                manifest: "json"
-            },
+    return UIComponent.extend("co.mitsubishi.flujotelefoniacelular.Component", {
+        metadata: {
+            manifest: "json",
+            interfaces: [
+                "sap.ui.core.IAsyncContentCreation"
+            ]
+        },
 
-            /**
-             * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
-             * @public
-             * @override
-             */
-            init: function () {
-                // call the base component's init function
-                UIComponent.prototype.init.apply(this, arguments);
+        init() {
+            // call the base component's init function
+            UIComponent.prototype.init.apply(this, arguments);
 
-                // enable routing
-                this.getRouter().initialize();
+            // set the device model
+            this.setModel(models.createDeviceModel(), "device");
 
-                // set the device model
-                this.setModel(models.createDeviceModel(), "device");
+            // user context
+            this._initUserContext();
+
+            // enable routing
+            this.getRouter().initialize();
+        },
+
+        // ============================
+        // User Context
+        // ============================
+        _initUserContext: async function () {
+            const oUserModel = new JSONModel();
+            this.setModel(oUserModel, "user");
+
+            const sEmail = sap?.ushell?.Container?.getUser?.()?.getEmail?.() || "carlos.bermudez@melcol.com.co";
+
+            let sPernr = "";
+            try {
+                sPernr = await this._readPernrRequest(sEmail);
+            } catch (oError) {
+                console.warn("No se pudo obtener Pernr del usuario:", oError);
             }
-        });
-    }
-);
+
+            oUserModel.setData({
+                email: sEmail,
+                pernr: sPernr
+            });
+            console.log("Model user: ", oUserModel);
+        },
+/*
+        _readPernrRequest(sEmail) {
+            return new Promise((resolve, reject) => {
+                const sCorreoEncoded = encodeURIComponent(sEmail);
+                
+                this.getModel().read("/Listado_GerentesSet(Correo='" + sCorreoEncoded + "')", {
+                    success: oData => resolve(oData.Pernr),
+                    error: reject
+                });
+            });
+        }
+*/
+    });
+});
