@@ -5,9 +5,9 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m">
 
-    <Page id="detailPage" title="{i18n>detailViewTitle}{ui>/IdSolicitud}">
+    <Page id="detailPage" title="{i18n>detailViewTitle}{ui>/IdSolicitud}" showHeader="{viewState>/showDetailContent}">
         <content>
-            <VBox id="mainDetailPageVbox" class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+            <VBox id="mainDetailPageVbox" class="sapUiSmallMarginBegin sapUiSmallMarginEnd" visible="{viewState>/showDetailContent}">
 
                 <Panel id="panelRequestForm" headerText="{i18n>titleRequestForm}" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
                     <form:SimpleForm id="requestSimpleForm" editable="{viewState>/Editable}" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
@@ -131,7 +131,7 @@
             </VBox>
         </content>
         <footer>
-            <OverflowToolbar id="overFlowToolbarFooter">
+            <OverflowToolbar id="overFlowToolbarFooter" visible="{viewState>/showDetailContent}">
                 <ToolbarSpacer id="toolbarSpacerFooter"/>
                 <Button id="btnSendRequest" text="{i18n>lblBtnSendRequest}" press="onSendRequest" icon="sap-icon://paper-plane" visible="{viewState>/showSendRequestButton}" enabled="{viewState>/canSendRequest}" type="Emphasized"/>
                 <Button id="btnSendAction" text="{i18n>lblBtnSendAction}" type="Emphasized" press="onSendAction" visible="{viewState>/allowAction}"/>

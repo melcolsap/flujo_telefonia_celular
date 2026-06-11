@@ -355,6 +355,7 @@ sap.ui.define([
         _initViewStateModel() {
             this.getView().setModel(new JSONModel({
                 Editable: false,
+                showDetailContent: false,
                 showSendRequestButton: false,
                 showActionPanel: false,
                 allowAction: false,
@@ -523,6 +524,7 @@ sap.ui.define([
 
             this.getView().getModel("viewState").setData({
                 Editable: true,
+                showDetailContent: true,
                 showSendRequestButton: true,
                 canSendRequest: false,
                 showActionPanel: false,
@@ -536,6 +538,7 @@ sap.ui.define([
         _configureViewStateByPasoActual(sPasoActual) {
             this.getView().getModel("viewState").setData({
                 Editable: false,
+                showDetailContent: true,
                 showSendRequestButton: false,
                 canSendRequest: false,
                 showActionPanel: !!sPasoActual,
