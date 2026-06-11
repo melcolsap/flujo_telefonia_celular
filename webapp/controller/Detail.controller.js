@@ -10,10 +10,12 @@ sap.ui.define([
         onInit() {
             this._initUiModel();
             this._initCitiesModel();
+            this._initManagersModel();
             this._initViewStateModel();
             this._attachUserModelSync();
             this._attachUiModelValidationSync();
             this._loadCities();
+            this._loadManagers();
         },
 
         _getUserPernr() {
@@ -30,6 +32,10 @@ sap.ui.define([
 
         _initCitiesModel() {
             this.getView().setModel(new JSONModel({ items: [] }), "cities");
+        },
+
+        _initManagersModel() {
+            this.getView().setModel(new JSONModel({ items: [] }), "managers");
         },
 
         _loadCities() {
@@ -57,6 +63,34 @@ sap.ui.define([
             });
         },
 
+        _loadManagers() {
+            const oManagersModel = this.getView().getModel("managers");
+
+            if (!oManagersModel || this._bManagersLoaded) {
+                return;
+            }
+
+            this._bManagersLoaded = true;
+            this.getOwnerComponent().getModel().read("/Listado_GerentesSet", {
+                success: (oData) => {
+                    const aItems = (oData.results || [])
+                        .map((oManager) => ({
+                            Pernr: String(oManager.Pernr || ""),
+                            Nombre: oManager.Nombre || "",
+                            JobTitle: oManager.Job_Title || ""
+                        }))
+                        .filter((oManager) => oManager.Pernr && oManager.Nombre)
+                        .sort((oManagerA, oManagerB) => oManagerA.Nombre.localeCompare(oManagerB.Nombre));
+
+                    oManagersModel.setProperty("/items", aItems);
+                },
+                error: (oError) => {
+                    this._bManagersLoaded = false;
+                    console.error("[Gerentes] Error al cargar gerentes", oError);
+                }
+            });
+        },
+
         // ============================ Centro de Costo Value Help ============================
         onCentroCosteVHRequest() {
             if (!this._oCentroCosteVH) {
@@ -69,13 +103,15 @@ sap.ui.define([
 
         onCentroCosteVHConfirm(oEvent) {
             const oItem = oEvent.getParameter("selectedItem");
-            const sNumeroCentroCoste = oItem.getBindingContext().getProperty("CentroCosto");
-            const sNombreCentroCoste = oItem.getBindingContext().getProperty("Descripcion");
-            console.log(sNumeroCentroCoste);
-            if (oItem) {
-                this.getView().getModel("ui").setProperty("/CentroCosto", sNumeroCentroCoste);
-                //this.getView().getModel("ui").setProperty("/NombreCentroCoste", sNombreCentroCoste);
-            };
+
+            if (!oItem) {
+                return;
+            }
+
+            const oContext = oItem.getBindingContext();
+            const sNumeroCentroCoste = oContext?.getProperty("CentroCoste") || "";
+
+            this.getView().getModel("ui").setProperty("/CentroCosto", sNumeroCentroCoste);
         },
 
         onCentroCosteVHSearch(oEvent) {
