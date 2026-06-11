@@ -31,7 +31,11 @@
                         <Input id="inpNombreSolicitante" value="{ui>/NombreSolicitante}" editable="{viewState>/Editable}" visible="{viewState>/fields/NombreSolicitante}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/NombreSolicitante} &amp;&amp; !${ui>/NombreSolicitante} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
                         <Label id="lblCiudad" text="{i18n>lblCiudad}" visible="{viewState>/fields/Ciudad}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Ciudad} }"/>
-                        <Input id="inpCiudad" value="{ui>/Ciudad}" editable="{viewState>/Editable}" visible="{viewState>/fields/Ciudad}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Ciudad} &amp;&amp; !${ui>/Ciudad} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
+                        <Select id="selCiudad" selectedKey="{ui>/Ciudad}" enabled="{viewState>/Editable}" visible="{viewState>/fields/Ciudad}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Ciudad} &amp;&amp; !${ui>/Ciudad} ? 'Error' : 'None' }" items="{cities>/items}">
+                            <items>
+                                <core:Item id="itemCiudad" key="{cities>Nombre}" text="{cities>Nombre}"/>
+                            </items>
+                        </Select>
 
                         <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} }"/>
                         <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} &amp;&amp; !${ui>/CentroCosto} ? 'Error' : 'None' }" valueLiveUpdate="true"/>

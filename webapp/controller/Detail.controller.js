@@ -9,9 +9,11 @@ sap.ui.define([
     return Controller.extend("co.mitsubishi.flujotelefoniacelular.controller.Detail", {
         onInit() {
             this._initUiModel();
+            this._initCitiesModel();
             this._initViewStateModel();
             this._attachUserModelSync();
             this._attachUiModelValidationSync();
+            this._loadCities();
         },
 
         _getUserPernr() {
@@ -24,6 +26,35 @@ sap.ui.define([
 
         _initUiModel() {
             this.getView().setModel(new JSONModel(this._initEmptyRequest()), "ui");
+        },
+
+        _initCitiesModel() {
+            this.getView().setModel(new JSONModel({ items: [] }), "cities");
+        },
+
+        _loadCities() {
+            const oCitiesModel = this.getView().getModel("cities");
+
+            if (!oCitiesModel || this._bCitiesLoaded) {
+                return;
+            }
+
+            this._bCitiesLoaded = true;
+            this.getOwnerComponent().getModel().read("/CiudadesSet", {
+                success: (oData) => {
+                    const aItems = (oData.results || [])
+                        .map((oCity) => ({
+                            Nombre: oCity.Nombre
+                        }))
+                        .sort((oCityA, oCityB) => oCityA.Nombre.localeCompare(oCityB.Nombre));
+
+                    oCitiesModel.setProperty("/items", aItems);
+                },
+                error: (oError) => {
+                    this._bCitiesLoaded = false;
+                    console.error("[Ciudades] Error al cargar ciudades", oError);
+                }
+            });
         },
 
         _attachUiModelValidationSync() {

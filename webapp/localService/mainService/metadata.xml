@@ -117,6 +117,19 @@
                 <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Descripcion" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
             </EntityType>
+            <EntityType Name="HT001w" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Werks"/>
+                </Key>
+                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Nombre" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sort2" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Concept.búsq.2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sort1" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Concept.búsq.1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostCode1" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Código postal" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="City1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Población" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name2" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Nombre 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nation" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Versión direc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <Association Name="EnviarToAdjunto" sap:content-version="1">
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Enviar_Accion" Multiplicity="1" Role="FromRole_EnviarToAdjunto"/>
                 <End Type="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Adjuntos" Multiplicity="*" Role="ToRole_EnviarToAdjunto"/>
@@ -152,6 +165,7 @@
                 <EntitySet Name="Centro_CostoSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Centro_Costo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="CiudadesSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Ciudades" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="TipoSoliSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.TipoSoli" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="HT001wSet" EntityType="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.HT001w" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <AssociationSet Name="CabToAdjuntoSet" Association="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.CabToAdjunto" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="CabeceraSet" Role="FromRole_CabToAdjunto"/>
                     <End EntitySet="AdjuntosSet" Role="ToRole_CabToAdjunto"/>
@@ -162,6 +176,30 @@
                 </AssociationSet>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="ZGW_FLUJO_TELEFONIA_CELULAR_SRV.Centro_Costo/Centro" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="HT001wSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Centro"/>
+                                    <PropertyValue Property="ValueListProperty" String="Werks"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Werks"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name1"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="PostCode1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <atom:link rel="self" href="http://172.18.20.79:8001/sap/opu/odata/sap/ZGW_FLUJO_TELEFONIA_CELULAR_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
             <atom:link rel="latest-version" href="http://172.18.20.79:8001/sap/opu/odata/sap/ZGW_FLUJO_TELEFONIA_CELULAR_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
         </Schema>
