@@ -404,7 +404,7 @@ sap.ui.define([
                     mVisibility.NombreRespActual = true;
                     mVisibility.CedulaRespNuevo = true;
                     mVisibility.NombreRespNuevo = true;
-                    mVisibility.Aprobador = true;
+                    //mVisibility.Aprobador = true;
                     //mVisibility.ResponsableGestion = true;
                     //mVisibility.ObsGestion = true;
                     //mVisibility.ObsAprobador = true;
@@ -471,7 +471,7 @@ sap.ui.define([
                     mRequired.NombreRespActual = true;
                     mRequired.CedulaRespNuevo = true;
                     mRequired.NombreRespNuevo = true;
-                    mRequired.Aprobador = true;
+                    //mRequired.Aprobador = true;
                     //mRequired.ResponsableGestion = true;
                     break;
                 case "3":
