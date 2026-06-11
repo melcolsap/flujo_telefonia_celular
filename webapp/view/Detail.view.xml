@@ -62,11 +62,7 @@
                         <Input id="inpCedulaRecibeSim" value="{ui>/CedulaRecibeSim}" editable="{viewState>/Editable}" visible="{viewState>/fields/CedulaRecibeSim}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CedulaRecibeSim} &amp;&amp; !${ui>/CedulaRecibeSim} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
 
                         <Label id="lblAprobador" text="{i18n>lblAprobador}" visible="{viewState>/fields/Aprobador}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Aprobador} }"/>
-                        <Select id="selAprobador" selectedKey="{ui>/Aprobador}" enabled="{viewState>/Editable}" visible="{viewState>/fields/Aprobador}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Aprobador} &amp;&amp; !${ui>/Aprobador} ? 'Error' : 'None' }" items="{managers>/items}">
-                            <items>
-                                <core:ListItem id="itemAprobador" key="{managers>Pernr}" text="{managers>Nombre}" additionalText="{managers>JobTitle}"/>
-                            </items>
-                        </Select>
+                        <Input id="inpAprobador" value="{ui>/AprobadorDisplay}" editable="{viewState>/Editable}" visible="{viewState>/fields/Aprobador}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Aprobador} &amp;&amp; !${ui>/Aprobador} ? 'Error' : 'None' }" valueHelpOnly="true" showValueHelp="{viewState>/Editable}" valueHelpRequest=".onAprobadorVHRequest" placeholder="{i18n>phAprobador}" />
 
                         <Label id="lblResponsableGestion" text="{i18n>lblResponsableGestion}" visible="{viewState>/fields/ResponsableGestion}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/ResponsableGestion} }"/>
                         <Input id="inpResponsableGestion" value="{ui>/ResponsableGestion}" editable="{viewState>/Editable}" visible="{viewState>/fields/ResponsableGestion}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/ResponsableGestion} &amp;&amp; !${ui>/ResponsableGestion} ? 'Error' : 'None' }" valueLiveUpdate="true"/>

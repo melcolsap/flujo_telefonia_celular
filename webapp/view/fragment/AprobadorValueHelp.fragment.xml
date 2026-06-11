@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="selectDialogAprobadorVH"
+        title="{i18n>titleAprobadorVH}"
+        items="{managers>/items}"
+        confirm="onAprobadorVHConfirm"
+        search="onAprobadorVHSearch"
+    >
+        <StandardListItem
+            id="standardListItemAprobadorVH"
+            title="{managers>Nombre}"
+            description="{managers>JobTitle}"
+            info="{managers>JobType}"
+            infoState="Information"
+        />
+    </SelectDialog>
+</core:FragmentDefinition>

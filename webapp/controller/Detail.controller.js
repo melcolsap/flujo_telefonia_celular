@@ -77,18 +77,104 @@ sap.ui.define([
                         .map((oManager) => ({
                             Pernr: String(oManager.Pernr || ""),
                             Nombre: oManager.Nombre || "",
-                            JobTitle: oManager.Job_Title || ""
+                            JobTitle: oManager.Job_Title || "",
+                            JobType: oManager.Job_Type || ""
                         }))
                         .filter((oManager) => oManager.Pernr && oManager.Nombre)
                         .sort((oManagerA, oManagerB) => oManagerA.Nombre.localeCompare(oManagerB.Nombre));
 
                     oManagersModel.setProperty("/items", aItems);
+                    this._syncAprobadorDisplay();
                 },
                 error: (oError) => {
                     this._bManagersLoaded = false;
                     console.error("[Gerentes] Error al cargar gerentes", oError);
                 }
             });
+        },
+
+        _buildManagerDisplayText(oManager) {
+            return [
+                oManager?.Nombre,
+                oManager?.JobTitle,
+                oManager?.JobType
+            ].filter(Boolean).join(" | ");
+        },
+
+        _findManagerByPernr(sPernr) {
+            const aItems = this.getView().getModel("managers")?.getProperty("/items") || [];
+            return aItems.find((oManager) => oManager.Pernr === String(sPernr || "")) || null;
+        },
+
+        _setAprobadorSelection(oManager) {
+            const oUiModel = this.getView().getModel("ui");
+
+            if (!oUiModel) {
+                return;
+            }
+
+            if (!oManager) {
+                oUiModel.setProperty("/Aprobador", "");
+                oUiModel.setProperty("/AprobadorDisplay", "");
+                return;
+            }
+
+            oUiModel.setProperty("/Aprobador", oManager.Pernr);
+            oUiModel.setProperty("/AprobadorDisplay", this._buildManagerDisplayText(oManager));
+        },
+
+        _syncAprobadorDisplay() {
+            const oUiModel = this.getView().getModel("ui");
+
+            if (!oUiModel) {
+                return;
+            }
+
+            const sPernr = String(oUiModel.getProperty("/Aprobador") || "");
+
+            if (!sPernr) {
+                oUiModel.setProperty("/AprobadorDisplay", "");
+                return;
+            }
+
+            const oManager = this._findManagerByPernr(sPernr);
+            oUiModel.setProperty("/AprobadorDisplay", oManager ? this._buildManagerDisplayText(oManager) : sPernr);
+        },
+
+        onAprobadorVHRequest() {
+            if (!this._oAprobadorVH) {
+                this._oAprobadorVH = sap.ui.xmlfragment("co.mitsubishi.flujotelefoniacelular.view.fragment.AprobadorValueHelp", this);
+                this._oAprobadorVH.setModel(this.getView().getModel("managers"), "managers");
+                this.getView().addDependent(this._oAprobadorVH);
+            }
+
+            this._oAprobadorVH.open();
+        },
+
+        onAprobadorVHConfirm(oEvent) {
+            const oItem = oEvent.getParameter("selectedItem");
+
+            if (!oItem) {
+                return;
+            }
+
+            const oManager = oItem.getBindingContext("managers")?.getObject();
+            this._setAprobadorSelection(oManager);
+        },
+
+        onAprobadorVHSearch(oEvent) {
+            const sSearchValue = oEvent.getParameter("value");
+            const oFilter = new sap.ui.model.Filter({
+                filters: [
+                    new sap.ui.model.Filter("Nombre", sap.ui.model.FilterOperator.Contains, sSearchValue),
+                    new sap.ui.model.Filter("JobTitle", sap.ui.model.FilterOperator.Contains, sSearchValue),
+                    new sap.ui.model.Filter("JobType", sap.ui.model.FilterOperator.Contains, sSearchValue),
+                    new sap.ui.model.Filter("Pernr", sap.ui.model.FilterOperator.Contains, sSearchValue)
+                ],
+                and: false
+            });
+
+            oEvent.getSource().getBinding("items").filter(oFilter);
         },
 
         // ============================ Centro de Costo Value Help ============================
@@ -242,6 +328,7 @@ sap.ui.define([
                 PersonaRecibeSim: "",
                 CedulaRecibeSim: "",
                 Aprobador: "",
+                AprobadorDisplay: "",
                 ResponsableGestion: "",
                 TipoEquipo: "",
                 Observacion: "",
@@ -267,6 +354,7 @@ sap.ui.define([
         loadInCreateMode() {
             this.getView().getModel("ui").setData(this._initEmptyRequest());
             this._syncUserFieldsToCreateModel(true);
+            this._syncAprobadorDisplay();
             this._setCreateViewState();
             this._applyTypeVisibility(this.getView().getModel("ui").getProperty("/TipoSolicitud"));
             this._refreshCreateAvailability();
@@ -281,6 +369,7 @@ sap.ui.define([
                 success: (oData) => {
                     sap.ui.core.BusyIndicator.hide();
                     this.getView().getModel("ui").setData(Adapter.mapCabeceraToUiModel(oData));
+                    this._syncAprobadorDisplay();
                     this._applyTypeVisibility(oData.TipoSolicitud);
                     this._configureViewStateByPasoActual(sPasoActual);
                     this._refreshCreateAvailability();
