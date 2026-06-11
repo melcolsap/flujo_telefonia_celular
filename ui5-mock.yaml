@@ -40,4 +40,6 @@ server:
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true
-        annotations: []
+        annotations:
+          - localPath: ./webapp/localService/mainService/ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL',Version='0001')/$value/

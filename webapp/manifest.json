@@ -20,9 +20,18 @@
         "uri": "/sap/opu/odata/sap/ZGW_FLUJO_TELEFONIA_CELULAR_SRV/",
         "type": "OData",
         "settings": {
-          "annotations": [],
+          "annotations": [
+            "ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL"
+          ],
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
+        }
+      },
+      "ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/mainService/ZGW_FLUJO_TELEFONIA_CEL_ANNO_MDL.xml"
         }
       }
     },

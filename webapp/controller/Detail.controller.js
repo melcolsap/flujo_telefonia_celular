@@ -57,6 +57,55 @@ sap.ui.define([
             });
         },
 
+        // ============================ Centro de Costo Value Help ============================
+        onCentroCosteVHRequest() {
+            if (!this._oCentroCosteVH) {
+                this._oCentroCosteVH = sap.ui.xmlfragment("co.mitsubishi.flujotelefoniacelular.view.fragment.CentroCosteValueHelp", this);
+                this._oCentroCosteVH.setModel(this.getOwnerComponent().getModel());
+                this.getView().addDependent(this._oCentroCosteVH);
+            };
+            this._oCentroCosteVH.open();
+        },
+
+        onCentroCosteVHConfirm(oEvent) {
+            const oItem = oEvent.getParameter("selectedItem");
+            const sNumeroCentroCoste = oItem.getBindingContext().getProperty("CentroCosto");
+            const sNombreCentroCoste = oItem.getBindingContext().getProperty("Descripcion");
+            console.log(sNumeroCentroCoste);
+            if (oItem) {
+                this.getView().getModel("ui").setProperty("/CentroCosto", sNumeroCentroCoste);
+                //this.getView().getModel("ui").setProperty("/NombreCentroCoste", sNombreCentroCoste);
+            };
+        },
+
+        onCentroCosteVHSearch(oEvent) {
+            const sSearchValue = oEvent.getParameter("value");
+
+            const aSearchFilters = [
+                new sap.ui.model.Filter("CentroCoste", sap.ui.model.FilterOperator.Contains, sSearchValue),
+                new sap.ui.model.Filter("Descripcion", sap.ui.model.FilterOperator.Contains, sSearchValue)
+            ];
+
+            const oFilter = new sap.ui.model.Filter({
+                filters: aSearchFilters,
+                and: false     // operation "OR"
+            });
+
+            oEvent.getSource().getBinding("items").filter(oFilter);
+        },
+
+        _loadCentroCosteDesc(sCentroCoste) {
+            this.getOwnerComponent().getModel().read(
+                "/ZCDS_CENTRO_COSTE('" + sCentroCoste + "')",
+                {
+                    success: (oData) => {
+                        this.getView().getModel("ui")
+                            .setProperty("/NombreCentroCoste", oData.Descripcion);
+                    }
+                }
+            );
+        },
+
         _attachUiModelValidationSync() {
             const oUiModel = this.getView().getModel("ui");
 

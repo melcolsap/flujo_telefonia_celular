@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+        id="selectDialogCentroCosteVH"
+        title="{i18n>titleCentroCosteVH}"
+        items="{ path:'/ZCDS_CENTRO_COSTE' }"
+        confirm="onCentroCosteVHConfirm"
+        search="onCentroCosteVHSearch"
+    >
+        <StandardListItem
+            id="StandarListItemCentroCosteVH"
+            title="{Descripcion}"
+            description="{CentroCoste}"
+        />
+    </SelectDialog>
+</core:FragmentDefinition>

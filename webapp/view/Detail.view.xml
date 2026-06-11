@@ -37,8 +37,8 @@
                             </items>
                         </Select>
 
-                        <Label id="lblCentroCosto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} }"/>
-                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} &amp;&amp; !${ui>/CentroCosto} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
+                        <Label id="lbslCentroCoto" text="{i18n>lblCentroCosto}" visible="{viewState>/fields/CentroCosto}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} }"/>
+                        <Input id="inpCentroCosto" value="{ui>/CentroCosto}" editable="{viewState>/Editable}" visible="{viewState>/fields/CentroCosto}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/CentroCosto} &amp;&amp; !${ui>/CentroCosto} ? 'Error' : 'None' }" valueLiveUpdate="true" showValueHelp="true" valueHelpRequest=".onCentroCosteVHRequest"/>
 
                         <Label id="lblLinea" text="{i18n>lblLinea}" visible="{viewState>/fields/Linea}" required="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Linea} }"/>
                         <Input id="inpLinea" value="{ui>/Linea}" editable="{viewState>/Editable}" visible="{viewState>/fields/Linea}" valueState="{= ${viewState>/Editable} &amp;&amp; ${viewState>/requiredFields/Linea} &amp;&amp; !${ui>/Linea} ? 'Error' : 'None' }" valueLiveUpdate="true"/>
