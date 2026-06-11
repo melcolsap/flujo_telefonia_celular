@@ -101,9 +101,9 @@ sap.ui.define([
             });
 
             try {
-                const sPernr = await this._readPernrRequest(sEmail);
+                //const sPernr = await this._readPernrRequest(sEmail);
                 //const sPernr = 1933;
-                //const sPernr = 223;
+                const sPernr = 223;
 
                 oUserModel.setData({
                     email: sEmail,

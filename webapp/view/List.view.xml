@@ -6,7 +6,7 @@
             <CustomListItem id="customListItem" type="Active">
                 <VBox id="vboxCustomListItem" class="sapUiSmallMargin">
                     <Text id="titleListItem" text="Solicitud N° {requests>Id_Solicitud}" class="sapMTitle sapUiTinyMarginBottom"/>
-                    <Text id="txtCentroCoste" text="{i18n>lblCentroCostoList}: {requests>CentroCosto}" wrapping="true"/>
+                    <!-- <Text id="txtCentroCoste" text="{i18n>lblCentroCostoList}: {requests>CentroCosto}" wrapping="true"/> -->
                     <Text id="txtSolicitante" text="{i18n>lblSolicitanteList}: {requests>Solicitante}" wrapping="true"/>
                     <ObjectStatus id="objectStatus" text="{path: 'requests>Estado', formatter: '.Adapter.formatStatusText'}" state="{path: 'requests>Estado', formatter: '.Adapter.formatStatusState'}" inverted="true" class="sapUiSmallMarginTop"/>
                 </VBox>
