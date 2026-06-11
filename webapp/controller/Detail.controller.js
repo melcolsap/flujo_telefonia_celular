@@ -35,6 +35,8 @@ sap.ui.define([
         },
 
         _initManagersModel() {
+            this._bManagersLoaded = false;
+            this._bManagersLoading = false;
             this.getView().setModel(new JSONModel({ items: [] }), "managers");
         },
 
@@ -65,13 +67,22 @@ sap.ui.define([
 
         _loadManagers() {
             const oManagersModel = this.getView().getModel("managers");
+            const oMainModel = this.getOwnerComponent().getModel();
+            const oSuperiorFilter = new sap.ui.model.Filter("Job_Type", sap.ui.model.FilterOperator.EQ, "SUPERIOR");
 
-            if (!oManagersModel || this._bManagersLoaded) {
+            if (!oManagersModel || !oMainModel || this._bManagersLoading) {
                 return;
             }
 
-            this._bManagersLoaded = true;
-            this.getOwnerComponent().getModel().read("/Listado_GerentesSet", {
+            this._bManagersLoading = true;
+            this._bManagersLoaded = false;
+            oManagersModel.setProperty("/items", []);
+
+            oMainModel.read("/Listado_GerentesSet", {
+                filters: [oSuperiorFilter],
+                urlParameters: {
+                    "sap-no-cache": Date.now().toString()
+                },
                 success: (oData) => {
                     const aItems = (oData.results || [])
                         .map((oManager) => ({
@@ -83,10 +94,13 @@ sap.ui.define([
                         .filter((oManager) => oManager.Pernr && oManager.Nombre)
                         .sort((oManagerA, oManagerB) => oManagerA.Nombre.localeCompare(oManagerB.Nombre));
 
+                    this._bManagersLoading = false;
+                    this._bManagersLoaded = true;
                     oManagersModel.setProperty("/items", aItems);
                     this._syncAprobadorDisplay();
                 },
                 error: (oError) => {
+                    this._bManagersLoading = false;
                     this._bManagersLoaded = false;
                     console.error("[Gerentes] Error al cargar gerentes", oError);
                 }
