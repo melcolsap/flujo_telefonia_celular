@@ -76,9 +76,9 @@ sap.ui.define([], () => {
                     Nombre: oAdjunto.Nombre,
                     Tipo: oAdjunto.Tipo,
                     Contenido: oAdjunto.Contenido,
-                    ID_FLUJO: "2",//oAdjunto.ID_FLUJO,
-                    //Id_Solicitud: oAdjunto.Id_Solicitud,
-                    //Id_Adjunto: oAdjunto.Id_Adjunto
+                    ID_FLUJO: oAdjunto.ID_FLUJO || "2",
+                    Id_Solicitud: toStringValue(oAdjunto.Id_Solicitud),
+                    Id_Adjunto: toStringValue(oAdjunto.Id_Adjunto)
                 }))
             };
         },

@@ -496,15 +496,22 @@ sap.ui.define([
                 return;
             }
 
-            const oUiData = this.getView().getModel("ui").getData();
             const sServiceUrl = this.getOwnerComponent().getModel().sServiceUrl;
 
             aSelectedItems.forEach(oItem => {
                 const oAdjunto = oItem.getBindingContext("ui").getObject();
+                const sIdSolicitud = String(oAdjunto.Id_Solicitud || "");
+                const sIdAdjunto = String(oAdjunto.Id_Adjunto || "");
+
+                if (!sIdSolicitud || !sIdAdjunto) {
+                    sap.m.MessageToast.show("El adjunto seleccionado no tiene los identificadores necesarios para descargar");
+                    return;
+                }
+
                 const sUrl = sServiceUrl +
                     "/DescargarAdjuntosSet(" +
-                    "Id_solicitud='" + String(oUiData.IdSolicitud) + "'," +
-                    "Id_adjunto='" + String(oAdjunto.Id_Adjunto) + "'" +
+                    "Id_solicitud='" + encodeURIComponent(sIdSolicitud) + "'," +
+                    "Id_adjunto='" + encodeURIComponent(sIdAdjunto) + "'" +
                     ")/$value";
 
                 window.open(sUrl, "_blank");
